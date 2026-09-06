@@ -861,32 +861,59 @@
       supabase.from('teacher_achievements').select('*').order('sort_order').order('created_at'),
     ]);
 
-    if (heroRes.data) {
-      const h = heroRes.data;
-      siteData.hero = { eyebrow:h.eyebrow||'', title:h.title||'', text:h.intro_text||'',
-        s1n:h.stat1_number||'', s1l:h.stat1_label||'', s2n:h.stat2_number||'', s2l:h.stat2_label||'',
-        s3n:h.stat3_number||'', s3l:h.stat3_label||'' };
-    }
-    if (aboutRes.data) {
-      const a = aboutRes.data;
-      siteData.about = { eyebrow:a.eyebrow||'', title:a.title||'', p1:a.paragraph_1||'', p2:a.paragraph_2||'' };
-    }
-    if (contactRes.data) {
-      const c = contactRes.data;
-      siteData.contact = { address:c.address||'', phone:c.phone||'', email:c.email||'', map:c.map_text||'' };
-    }
-    if (strandsRes.data) {
-      const ac = strandsRes.data.find(s => s.track_key === 'academic');
-      const tv = strandsRes.data.find(s => s.track_key === 'tvl');
+    // Log any per-table errors loudly instead of letting them silently
+    // block every other section from rendering.
+    [heroRes, aboutRes, contactRes, strandsRes, annRes, newsRes, galRes, dlRes, asRes, atRes]
+      .forEach((r, i) => { if (r && r.error) console.error('Supabase load error [' + i + ']:', r.error); });
+
+    try {
+      if (heroRes.data) {
+        const h = heroRes.data;
+        siteData.hero = { eyebrow:h.eyebrow||'', title:h.title||'', text:h.intro_text||'',
+          s1n:h.stat1_number||'', s1l:h.stat1_label||'', s2n:h.stat2_number||'', s2l:h.stat2_label||'',
+          s3n:h.stat3_number||'', s3l:h.stat3_label||'' };
+      }
+    } catch (e) { console.error('hero mapping failed:', e); }
+
+    try {
+      if (aboutRes.data) {
+        const a = aboutRes.data;
+        siteData.about = { eyebrow:a.eyebrow||'', title:a.title||'', p1:a.paragraph_1||'', p2:a.paragraph_2||'' };
+      }
+    } catch (e) { console.error('about mapping failed:', e); }
+
+    try {
+      if (contactRes.data) {
+        const c = contactRes.data;
+        siteData.contact = { address:c.address||'', phone:c.phone||'', email:c.email||'', map:c.map_text||'' };
+      }
+    } catch (e) { console.error('contact mapping failed:', e); }
+
+    try {
+      const strandRows = strandsRes.data || [];
+      const ac = strandRows.find(s => s.track_key === 'academic');
+      const tv = strandRows.find(s => s.track_key === 'tvl');
       if (ac) siteData.strandAcademic = { title:ac.title||'', desc:ac.description||'', items:ac.items||[] };
       if (tv) siteData.strandTVL = { title:tv.title||'', desc:tv.description||'', items:tv.items||[] };
-    }
-    siteData.announcements = (annRes.data||[]).map(r => ({ id:r.id, day:r.day, month:r.month, tag:r.tag, title:r.title, desc:r.description }));
-    siteData.news = (newsRes.data||[]).map(r => ({ id:r.id, cat:r.category, title:r.title, desc:r.description }));
-    siteData.gallery = (galRes.data||[]).map(r => ({ id:r.id, label:r.label }));
-    siteData.downloads = (dlRes.data||[]).map(r => ({ id:r.id, code:r.code, title:r.title, desc:r.description, file_path:r.file_path, file_name:r.file_name }));
-    siteData.achStudents = (asRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description }));
-    siteData.achTeachers = (atRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description }));
+    } catch (e) { console.error('strands mapping failed:', e); }
+
+    try { siteData.announcements = (annRes.data||[]).map(r => ({ id:r.id, day:r.day, month:r.month, tag:r.tag, title:r.title, desc:r.description })); }
+    catch (e) { console.error('announcements mapping failed:', e); }
+
+    try { siteData.news = (newsRes.data||[]).map(r => ({ id:r.id, cat:r.category, title:r.title, desc:r.description })); }
+    catch (e) { console.error('news mapping failed:', e); }
+
+    try { siteData.gallery = (galRes.data||[]).map(r => ({ id:r.id, label:r.label })); }
+    catch (e) { console.error('gallery mapping failed:', e); }
+
+    try { siteData.downloads = (dlRes.data||[]).map(r => ({ id:r.id, code:r.code, title:r.title, desc:r.description, file_path:r.file_path, file_name:r.file_name })); }
+    catch (e) { console.error('downloads mapping failed:', e); }
+
+    try { siteData.achStudents = (asRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description })); }
+    catch (e) { console.error('achStudents mapping failed:', e); }
+
+    try { siteData.achTeachers = (atRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description })); }
+    catch (e) { console.error('achTeachers mapping failed:', e); }
 
     renderAllPublic();
   }
