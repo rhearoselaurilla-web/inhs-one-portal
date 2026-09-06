@@ -742,7 +742,12 @@
 <script>
   const SUPABASE_URL = "__SUPABASE_URL__";
   const SUPABASE_ANON_KEY = "__SUPABASE_ANON_KEY__";
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // The Supabase CDN library exposes itself globally as `supabase`.
+  // We grab createClient from it, then overwrite that same global with
+  // our actual client instance (no const/let here — that would collide
+  // with the global the library already created).
+  const { createClient } = supabase;
+  supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 </script>
  
 <script>
@@ -1390,8 +1395,3 @@
  
 </body>
 </html>
- 
-
- 
-
- 
