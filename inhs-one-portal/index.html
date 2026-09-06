@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isulan National High School — One Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#FFC72C;
+    --yellow-deep:#F0A500;
+    --yellowgreen:#7FB519;
+    --yellowgreen-deep:#5C8A0F;
+    --white:#FFFFFF;
+    --cream:#FFFBEF;
+    --ink:#20260E;
+    --ink-soft:#4B4A3B;
+    --line:#E7E0C6;
+    --radius:14px;
+    --shadow:0 10px 30px -12px rgba(32,38,14,0.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);line-height:1.6;}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;font-weight:700;letter-spacing:-0.01em;}
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .eyebrow{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--yellowgreen-deep);font-weight:700;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  body.is-fullscreen .wrap{max-width:100%;padding:0 48px;}
+  @media(max-width:700px){ body.is-fullscreen .wrap{padding:0 20px;} }
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.92rem;border:2px solid transparent;cursor:pointer;transition:.2s ease;}
+  .btn-primary{background:var(--yellow);color:var(--ink);}
+  .btn-primary:hover{background:var(--yellow-deep);transform:translateY(-2px);}
+  .btn-outline{border-color:var(--white);color:var(--white);}
+  .btn-outline:hover{background:rgba(255,255,255,0.15);}
+  .btn-green{background:var(--yellowgreen);color:var(--white);}
+  .btn-green:hover{background:var(--yellowgreen-deep);}
+  .btn-danger{background:#E7E0C6;color:var(--ink);}
+  .btn-danger:hover{background:#d8cfa8;}
+  .btn-sm{padding:8px 16px;font-size:0.82rem;}
+ 
+  /* ===== Top bar ===== */
+  .topbar{background:var(--ink);color:var(--cream);font-size:0.82rem;}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:8px;padding-bottom:8px;flex-wrap:wrap;gap:8px;}
+  .topbar-left{display:flex;gap:20px;flex-wrap:wrap;}
+  .topbar-left span{display:inline-flex;align-items:center;gap:6px;}
+  .topbar-right{display:flex;gap:14px;align-items:center;}
+  .topbar-right a{width:26px;height:26px;border-radius:50%;background:rgba(255,199,44,0.16);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--yellow);}
+  .topbar-right a:hover{background:var(--yellow);color:var(--ink);}
+  .fullscreen-btn{display:flex;align-items:center;gap:6px;background:rgba(255,199,44,0.16);color:var(--yellow);border:none;border-radius:999px;padding:5px 14px;font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;cursor:pointer;transition:.2s;}
+  .fullscreen-btn:hover{background:var(--yellow);color:var(--ink);}
+ 
+  /* ===== Header ===== */
+  header.site-header{background:var(--white);border-bottom:4px solid var(--yellow);position:sticky;top:0;z-index:50;box-shadow:0 2px 14px rgba(0,0,0,0.05);}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:20px;}
+  .brand{display:flex;align-items:center;gap:14px;cursor:pointer;}
+  .seal{width:58px;height:58px;border-radius:50%;background:conic-gradient(from 180deg, var(--yellow), var(--yellowgreen), var(--yellow));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:inset 0 0 0 3px var(--white), inset 0 0 0 5px var(--ink);}
+  .seal span{font-family:'Poppins',sans-serif;font-weight:800;font-size:0.95rem;color:var(--ink);}
+  .brand-text h1{font-size:1.12rem;color:var(--ink);line-height:1.2;}
+  .brand-text p{font-size:0.76rem;color:var(--ink-soft);font-family:'Space Mono',monospace;}
+  .home-link{display:inline-block;margin-top:4px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.78rem;color:var(--yellowgreen-deep);}
+  .home-link:hover{text-decoration:underline;}
+  /* ===== Menu dropdown (left side of header) ===== */
+  .menu-dropdown{position:relative;}
+  .menu-btn{
+    display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;
+    border:2px solid var(--line);background:var(--white);cursor:pointer;
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:0.88rem;color:var(--ink);transition:.2s;
+  }
+  .menu-btn:hover{border-color:var(--yellowgreen);color:var(--yellowgreen-deep);}
+  .menu-btn .bars{font-size:1.1rem;line-height:1;}
+  .menu-panel{
+    position:absolute;top:calc(100% + 10px);right:0;min-width:220px;
+    background:var(--white);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);
+    padding:8px;display:none;flex-direction:column;gap:4px;z-index:60;
+  }
+  .menu-panel.open{display:flex;}
+  .menu-panel-link{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:8px;font-family:'Poppins',sans-serif;font-weight:600;font-size:0.88rem;color:var(--ink);}
+  .menu-panel-link:hover{background:var(--cream);color:var(--yellowgreen-deep);}
+  .menu-panel-link.current{background:var(--cream);color:var(--yellowgreen-deep);}
+  .menu-panel-link.admin-link{background:var(--ink);color:var(--yellow);}
+  .menu-panel-link.admin-link:hover{background:var(--yellowgreen-deep);color:var(--white);}
+  main.main-content{width:100%;}
+ 
+  /* ===== Page view switching ===== */
+  .page-view{display:none;}
+  .page-view.active{display:block;}
+ 
+  /* ===== Hero (home) ===== */
+  .hero{
+    position:relative;color:var(--white);overflow:hidden;
+    min-height:520px;display:flex;align-items:center;
+    background:linear-gradient(120deg, var(--yellowgreen-deep), var(--yellowgreen) 55%, var(--yellow-deep));
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(255,199,44,0.55), transparent 45%),
+      radial-gradient(circle at 10% 90%, rgba(255,255,255,0.18), transparent 40%);
+  }
+  .hero-grid{
+    position:absolute;inset:0;opacity:0.12;
+    background-image:linear-gradient(var(--white) 1px, transparent 1px),linear-gradient(90deg, var(--white) 1px, transparent 1px);
+    background-size:44px 44px;
+  }
+  .hero-inner{position:relative;z-index:2;padding:70px 0;display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center;}
+  .hero-copy .eyebrow{color:var(--ink);background:var(--yellow);display:inline-block;padding:6px 14px;border-radius:999px;margin-bottom:18px;}
+  .hero-copy h2{font-size:clamp(2rem,4.2vw,3.1rem);line-height:1.08;margin-bottom:16px;}
+  .hero-copy p{font-size:1.05rem;max-width:520px;color:rgba(255,255,255,0.92);margin-bottom:28px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-stats{display:flex;gap:0;margin-top:36px;flex-wrap:wrap;}
+  .hero-stats div{padding-right:28px;margin-right:28px;border-right:1px solid rgba(255,255,255,0.35);}
+  .hero-stats div:last-child{border-right:none;}
+  .hero-stats strong{display:block;font-family:'Poppins';font-size:1.7rem;}
+  .hero-stats span{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.08em;opacity:0.85;}
+  .hero-visual{
+    position:relative;aspect-ratio:1/1;border-radius:24px;
+    background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.35);
+    backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;
+  }
+  .hero-visual .seal-lg{
+    width:72%;aspect-ratio:1/1;border-radius:50%;
+    background:conic-gradient(from 180deg, var(--yellow), #fff6df, var(--yellow));
+    box-shadow:inset 0 0 0 6px var(--white), inset 0 0 0 10px rgba(32,38,14,0.85), var(--shadow);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+  }
+  .hero-visual .seal-lg strong{font-family:'Poppins';font-size:2rem;color:var(--ink);}
+  .hero-visual .seal-lg span{font-family:'Space Mono';font-size:0.68rem;letter-spacing:0.1em;color:var(--ink-soft);text-transform:uppercase;}
+  @media(max-width:860px){.hero-inner{grid-template-columns:1fr;}.hero-visual{max-width:280px;margin:0 auto;}}
+ 
+  /* ===== Page hero (subpages) ===== */
+  .page-hero{
+    position:relative;color:var(--white);overflow:hidden;
+    background:linear-gradient(120deg, var(--yellowgreen-deep), var(--yellowgreen) 55%, var(--yellow-deep));
+    padding:64px 0;
+  }
+  .page-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%, rgba(255,199,44,0.55), transparent 45%),radial-gradient(circle at 10% 90%, rgba(255,255,255,0.18), transparent 40%);}
+  .page-hero .wrap{position:relative;z-index:2;}
+  .page-hero .eyebrow{color:var(--ink);background:var(--yellow);display:inline-block;padding:6px 14px;border-radius:999px;margin-bottom:18px;}
+  .page-hero h2{font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.15;max-width:640px;}
+ 
+  /* ===== Sections generic ===== */
+  section{padding:76px 0;}
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-head h2{font-size:clamp(1.6rem,2.6vw,2.2rem);margin-top:8px;color:var(--ink);}
+  .section-head p{color:var(--ink-soft);margin-top:10px;}
+  .section-alt{background:var(--cream);}
+ 
+  /* ===== About ===== */
+  .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:52px;align-items:center;}
+  .about-media{
+    border-radius:var(--radius);overflow:hidden;position:relative;
+    aspect-ratio:4/5;background:linear-gradient(160deg,var(--yellowgreen),var(--yellow));
+    display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);
+  }
+  .about-media span{font-family:'Poppins';color:var(--white);font-weight:700;text-align:center;padding:20px;font-size:1.1rem;}
+  .about-copy h2{font-size:clamp(1.6rem,2.6vw,2.2rem);margin-bottom:16px;}
+  .about-copy p{color:var(--ink-soft);margin-bottom:14px;}
+  .about-facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+  .fact{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+  .fact strong{display:block;font-family:'Poppins';color:var(--yellowgreen-deep);font-size:1.3rem;}
+  .fact span{font-size:0.82rem;color:var(--ink-soft);}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr;}}
+ 
+  /* ===== Strand cards ===== */
+  .strand-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+  .strand-card{border-radius:var(--radius);padding:32px;color:var(--white);box-shadow:var(--shadow);position:relative;overflow:hidden;}
+  .strand-card.academic{background:linear-gradient(140deg,var(--yellowgreen-deep),var(--yellowgreen));}
+  .strand-card.tvl{background:linear-gradient(140deg,var(--yellow-deep),var(--yellow));color:var(--ink);}
+  .strand-card h3{font-size:1.3rem;margin-bottom:10px;}
+  .strand-card p{opacity:0.92;margin-bottom:16px;font-size:0.94rem;}
+  .strand-card ul{display:flex;flex-direction:column;gap:8px;}
+  .strand-card li{font-size:0.9rem;padding-left:18px;position:relative;}
+  .strand-card li::before{content:"›";position:absolute;left:0;font-weight:800;}
+  @media(max-width:760px){.strand-grid{grid-template-columns:1fr;}}
+ 
+  /* ===== Downloads ===== */
+  .download-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
+  .dl-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;text-align:left;transition:.2s;cursor:pointer;}
+  .dl-card:hover{border-color:var(--yellowgreen);transform:translateY(-4px);box-shadow:var(--shadow);}
+  .dl-media{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;}
+  .dl-media span{font-family:'Poppins';font-weight:800;font-size:1.4rem;color:var(--white);}
+  .dl-card-body{padding:18px;}
+  .dl-card h4{font-size:0.98rem;margin-bottom:6px;}
+  .dl-card span{font-size:0.8rem;color:var(--ink-soft);}
+  @media(max-width:980px){.download-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.download-grid{grid-template-columns:1fr;}}
+ 
+  /* ===== Announcements ===== */
+  .announce-list{display:flex;flex-direction:column;border-top:1px solid var(--line);}
+  .announce-item{display:grid;grid-template-columns:110px 1fr auto;gap:22px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);}
+  .announce-date{background:var(--ink);color:var(--yellow);border-radius:10px;padding:10px;text-align:center;font-family:'Poppins';}
+  .announce-date strong{display:block;font-size:1.3rem;line-height:1;}
+  .announce-date span{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;}
+  .announce-item h4{font-size:1rem;margin-bottom:4px;}
+  .announce-item p{font-size:0.85rem;color:var(--ink-soft);}
+  .tag{font-family:'Space Mono';font-size:0.68rem;text-transform:uppercase;letter-spacing:0.08em;background:var(--cream);color:var(--yellowgreen-deep);padding:6px 12px;border-radius:999px;white-space:nowrap;border:1px solid var(--line);}
+  @media(max-width:640px){.announce-item{grid-template-columns:70px 1fr;}.tag{display:none;}}
+ 
+  /* ===== Achievements tabs ===== */
+  .tabs{display:flex;gap:10px;margin-bottom:30px;}
+  .tab-btn{padding:10px 20px;border-radius:999px;border:2px solid var(--line);background:var(--white);font-family:'Poppins';font-weight:600;font-size:0.88rem;cursor:pointer;color:var(--ink-soft);}
+  .tab-btn.active{background:var(--yellowgreen);border-color:var(--yellowgreen);color:var(--white);}
+  .achieve-grid{display:none;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .achieve-grid.active{display:grid;}
+  .achieve-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;}
+  .achieve-media{aspect-ratio:16/9;border-radius:10px;margin-bottom:16px;}
+  .achieve-card .rank{font-family:'Poppins';font-weight:800;font-size:1.6rem;color:var(--yellow-deep);}
+  .achieve-card h4{margin:8px 0 6px;font-size:1rem;}
+  .achieve-card p{font-size:0.85rem;color:var(--ink-soft);}
+  @media(max-width:860px){.achieve-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.achieve-grid{grid-template-columns:1fr;}}
+ 
+  /* ===== News ===== */
+  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .news-card{background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:0 4px 18px rgba(32,38,14,0.06);}
+  .news-media{aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;}
+  .news-media span{font-family:'Space Mono';color:var(--white);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;}
+  .news-body{padding:20px;}
+  .news-body .eyebrow{margin-bottom:8px;display:block;}
+  .news-body h4{font-size:1.02rem;margin-bottom:8px;line-height:1.3;}
+  .news-body p{font-size:0.86rem;color:var(--ink-soft);margin-bottom:14px;}
+  .news-body a{font-family:'Poppins';font-weight:600;font-size:0.85rem;color:var(--yellowgreen-deep);}
+  @media(max-width:900px){.news-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:600px){.news-grid{grid-template-columns:1fr;}}
+ 
+  /* ===== Gallery ===== */
+  .gallery-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+  .gallery-item{aspect-ratio:3/4;border-radius:12px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:14px;color:var(--white);}
+  .gallery-item span{font-family:'Poppins';font-weight:600;font-size:0.86rem;position:relative;z-index:2;}
+  .gallery-item::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg, rgba(0,0,0,0.55), transparent 60%);}
+  .g1{background:linear-gradient(160deg,#5C8A0F,#7FB519);}
+  .g2{background:linear-gradient(160deg,#F0A500,#FFC72C);}
+  .g3{background:linear-gradient(160deg,#7FB519,#20260E);}
+  .g4{background:linear-gradient(160deg,#FFC72C,#5C8A0F);}
+  .g5{background:linear-gradient(160deg,#20260E,#F0A500);}
+  @media(max-width:900px){.gallery-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:560px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+ 
+  /* ===== Contact / map ===== */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+  .map-box{border-radius:var(--radius);aspect-ratio:4/3;background:repeating-linear-gradient(45deg, var(--cream), var(--cream) 10px, #fff 10px, #fff 20px);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink-soft);font-family:'Space Mono';font-size:0.8rem;text-align:center;padding:20px;}
+  .contact-form{display:flex;flex-direction:column;gap:14px;}
+  .contact-form input,.contact-form textarea{padding:14px 16px;border-radius:10px;border:1px solid var(--line);font-family:'Inter';font-size:0.92rem;background:var(--cream);}
+  .contact-form textarea{min-height:120px;resize:vertical;}
+  .contact-info-list{display:flex;flex-direction:column;gap:16px;margin-top:24px;}
+  .contact-info-list li{display:flex;gap:14px;font-size:0.9rem;color:var(--ink-soft);}
+  .contact-info-list b{color:var(--ink);}
+ 
+  /* ===== Admin login ===== */
+  .login-wrap{display:flex;justify-content:center;}
+  .login-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:40px;max-width:420px;width:100%;}
+  .login-card h2{font-size:1.4rem;margin-bottom:6px;}
+  .login-card p{color:var(--ink-soft);font-size:0.88rem;margin-bottom:26px;}
+  .login-form{display:flex;flex-direction:column;gap:14px;}
+  .login-form label{font-family:'Poppins';font-size:0.82rem;font-weight:600;margin-bottom:-6px;}
+  .login-form input{padding:14px 16px;border-radius:10px;border:1px solid var(--line);font-family:'Inter';font-size:0.92rem;background:var(--cream);}
+  .login-form input:focus{outline:2px solid var(--yellowgreen);}
+  .login-error{display:none;background:#FDECEC;color:#B3261E;border:1px solid #F3C6C4;padding:10px 14px;border-radius:10px;font-size:0.84rem;}
+  .login-hint{margin-top:20px;font-size:0.78rem;color:var(--ink-soft);font-family:'Space Mono';background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:10px 14px;}
+ 
+  /* ===== Admin dashboard ===== */
+  #adminDashboard{display:none;}
+  .dash-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+  .dash-topbar h2{font-size:1.5rem;}
+  .dash-topbar p{color:var(--ink-soft);font-size:0.88rem;}
+  .dash-section-title{font-family:'Space Mono';font-size:0.74rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--yellowgreen-deep);margin:44px 0 16px;padding-top:20px;border-top:1px solid var(--line);}
+  .dash-section-title:first-of-type{margin-top:0;padding-top:0;border-top:none;}
+  .dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  @media(max-width:900px){.dash-grid{grid-template-columns:1fr;}}
+  .dash-panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px;}
+  .dash-panel h3{font-size:1.05rem;margin-bottom:4px;}
+  .dash-panel > p.hint{color:var(--ink-soft);font-size:0.84rem;margin-bottom:20px;}
+  .dash-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;}
+  .dash-form input,.dash-form select,.dash-form textarea{padding:10px 12px;border-radius:8px;border:1px solid var(--line);font-family:'Inter';font-size:0.86rem;background:var(--cream);}
+  .dash-form .full{grid-column:1/-1;}
+  .dash-form textarea{min-height:64px;resize:vertical;}
+  .dash-list{display:flex;flex-direction:column;gap:10px;max-height:340px;overflow-y:auto;}
+  .dash-list-item{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--cream);}
+  .dash-list-item .li-info h4{font-size:0.9rem;margin-bottom:2px;}
+  .dash-list-item .li-info span{font-size:0.76rem;color:var(--ink-soft);}
+  .dash-list-item .li-meta{font-family:'Space Mono';font-size:0.68rem;color:var(--yellowgreen-deep);text-transform:uppercase;letter-spacing:0.05em;}
+  .empty-note{font-size:0.82rem;color:var(--ink-soft);font-style:italic;}
+  .save-note{display:none;font-size:0.8rem;color:var(--yellowgreen-deep);font-weight:600;margin-top:10px;}
+ 
+  /* ===== Footer ===== */
+  footer{background:#161B0D;color:rgba(255,251,239,0.82);}
+  .footer-top{padding:60px 0 30px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;}
+  .footer-brand .seal{margin-bottom:14px;}
+  .footer-brand p{font-size:0.86rem;line-height:1.7;color:rgba(255,251,239,0.65);max-width:280px;}
+  footer h5{font-family:'Poppins';color:var(--yellow);font-size:0.86rem;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px;}
+  footer ul li{margin-bottom:10px;font-size:0.88rem;}
+  footer ul li a:hover{color:var(--yellow);}
+  .footer-bottom{border-top:1px solid rgba(255,251,239,0.12);padding:20px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:0.8rem;color:rgba(255,251,239,0.55);}
+  @media(max-width:860px){.footer-top{grid-template-columns:1fr 1fr;}}
+  @media(max-width:560px){.footer-top{grid-template-columns:1fr;}}
+ 
+  .fade-up{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+  .fade-up.in{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+ 
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <span>📞 (064) 000 0000</span>
+      <span>✉ info@inhs.edu.ph</span>
+      <span>📍 Isulan, Sultan Kudarat</span>
+    </div>
+    <div class="topbar-right">
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="YouTube">▶</a>
+      <a href="#" aria-label="Email">@</a>
+      <button type="button" class="fullscreen-btn" id="fullscreenBtn">⛶ Full Screen</button>
+    </div>
+  </div>
+</div>
+ 
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div class="brand" data-page="home">
+      <div class="seal"><span>INHS</span></div>
+      <div class="brand-text">
+        <h1>Isulan National High School</h1>
+        <p>DEPED — SULTAN KUDARAT PROVINCE</p>
+        <a href="#" class="home-link" data-page="home">🏠 Home</a>
+      </div>
+    </div>
+    <div class="menu-dropdown" id="menuDropdown">
+      <button class="menu-btn" id="menuBtn" aria-haspopup="true" aria-expanded="false"><span class="bars">☰</span> Menu</button>
+      <div class="menu-panel" id="menuPanel">
+        <a href="#" class="menu-panel-link" data-page="achievements">🏆 Achievements</a>
+        <a href="#" class="menu-panel-link" data-page="downloads">📄 Forms &amp; Downloads</a>
+        <a href="#" class="menu-panel-link admin-link" data-page="admin">🔒 Admin Login</a>
+      </div>
+    </div>
+  </div>
+</header>
+ 
+<div class="wrap">
+  <main class="main-content">
+ 
+  <!-- ============================================================ -->
+  <!-- PAGE 1: HOME (About, Announcements, News, Strands, Gallery, Contact) -->
+  <!-- ============================================================ -->
+  <div class="page-view active" id="page-home">
+ 
+    <section class="hero" id="home" style="padding:0;">
+      <div class="hero-grid"></div>
+      <div class="wrap hero-inner">
+        <div class="hero-copy fade-up">
+          <span class="eyebrow" id="heroEyebrow"></span>
+          <h2 id="heroTitle"></h2>
+          <p id="heroText"></p>
+          <div class="hero-stats" id="heroStats"></div>
+        </div>
+        <div class="hero-visual fade-up">
+          <div class="seal-lg">
+            <strong>INHS</strong>
+            <span>Est. Isulan</span>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section id="about">
+      <div class="wrap about-grid">
+        <div class="about-media fade-up"><span>School Facade<br>Photo Placeholder</span></div>
+        <div class="about-copy fade-up">
+          <span class="eyebrow" id="aboutEyebrow"></span>
+          <h2 id="aboutTitle"></h2>
+          <p id="aboutP1"></p>
+          <p id="aboutP2"></p>
+          <div class="about-facts">
+            <div class="fact"><strong>Junior HS</strong><span>Grades 7–10</span></div>
+            <div class="fact"><strong>Senior HS</strong><span>Grades 11–12</span></div>
+            <div class="fact"><strong>Academic Track</strong><span>ABM · HUMSS · STEM · GAS</span></div>
+            <div class="fact"><strong>TVL Track</strong><span>Home Economics · ICT · Agri-Fishery</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section id="announcements" class="section-alt">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <span class="eyebrow">Stay Updated</span>
+          <h2>School Announcements</h2>
+          <p>Official memos, advisories, and reminders from the school administration.</p>
+        </div>
+        <div class="announce-list" id="announceListPublic"></div>
+      </div>
+    </section>
+ 
+    <section id="news">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <span class="eyebrow">Newsroom</span>
+          <h2>News and Events</h2>
+          <p>The latest happenings around Isulan National High School.</p>
+        </div>
+        <div class="news-grid" id="newsGridPublic"></div>
+      </div>
+    </section>
+ 
+    <section id="strands" class="section-alt">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <span class="eyebrow">Senior High School</span>
+          <h2>Strand Offerings</h2>
+          <p>INHS offers two Senior High School tracks, each with specialized strands to match every student's goals.</p>
+        </div>
+        <div class="strand-grid" id="strandGridPublic"></div>
+      </div>
+    </section>
+ 
+    <section id="gallery">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <span class="eyebrow">Around the Campus</span>
+          <h2>Photo Gallery</h2>
+          <p>A look at the facilities and grounds of Isulan National High School.</p>
+        </div>
+        <div class="gallery-grid" id="galleryGridPublic"></div>
+      </div>
+    </section>
+ 
+    <section id="contact" class="section-alt">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <span class="eyebrow">Get in Touch</span>
+          <h2>Contact Page</h2>
+          <p>Have a question or concern? Send us a message or visit the school office.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="map-box fade-up" id="mapBoxPublic"></div>
+          <div class="fade-up">
+            <form class="contact-form" onsubmit="return false;">
+              <input type="text" placeholder="Full Name">
+              <input type="email" placeholder="Email Address">
+              <textarea placeholder="Your Message"></textarea>
+              <button class="btn btn-green" type="submit" style="align-self:flex-start;">Send Message</button>
+            </form>
+            <ul class="contact-info-list" id="contactInfoPublic"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+  </div>
+ 
+  <!-- ============================================================ -->
+  <!-- PAGE 2: ACHIEVEMENTS -->
+  <!-- ============================================================ -->
+  <div class="page-view" id="page-achievements">
+ 
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">Recognition</span>
+        <h2>School Achievements</h2>
+      </div>
+    </section>
+ 
+    <section id="achievements">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <span class="eyebrow">Recognition</span>
+          <h2>Celebrating Our Students &amp; Teachers</h2>
+          <p>Celebrating the accomplishments of our students and teachers.</p>
+        </div>
+        <div class="tabs fade-up">
+          <button class="tab-btn active" data-tab="students">Students</button>
+          <button class="tab-btn" data-tab="teachers">Teachers</button>
+        </div>
+        <div class="achieve-grid active" id="students"></div>
+        <div class="achieve-grid" id="teachers"></div>
+      </div>
+    </section>
+ 
+  </div>
+ 
+  <!-- ============================================================ -->
+  <!-- PAGE 3: DOWNLOADABLE CENTER -->
+  <!-- ============================================================ -->
+  <div class="page-view" id="page-downloads">
+ 
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">Downloadable Center</span>
+        <h2>Forms &amp; Documents</h2>
+      </div>
+    </section>
+ 
+    <section id="downloads">
+      <div class="wrap">
+        <div class="section-head fade-up">
+          <span class="eyebrow">Downloadable Center</span>
+          <h2>Forms &amp; Documents</h2>
+          <p>Access official school documents and forms without visiting the registrar's office.</p>
+        </div>
+        <div class="download-grid" id="downloadGridFront"></div>
+      </div>
+    </section>
+ 
+  </div>
+ 
+  <!-- ============================================================ -->
+  <!-- PAGE 4: ADMIN (Login + Dashboard) -->
+  <!-- ============================================================ -->
+  <div class="page-view" id="page-admin">
+ 
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">Restricted Access</span>
+        <h2>Administrator Dashboard</h2>
+      </div>
+    </section>
+ 
+    <section id="adminLoginSection" class="section-alt">
+      <div class="wrap login-wrap">
+        <div class="login-card">
+          <h2>Admin Sign In</h2>
+          <p>Log in to manage the entire site, including the home page.</p>
+          <div class="login-error" id="loginError">Incorrect username or password. Please try again.</div>
+          <form class="login-form" id="loginForm">
+            <label for="adminUser">Username</label>
+            <input type="text" id="adminUser" placeholder="Enter username" autocomplete="username" required>
+            <label for="adminPass">Password</label>
+            <input type="password" id="adminPass" placeholder="Enter password" autocomplete="current-password" required>
+            <button type="submit" class="btn btn-primary" style="justify-content:center;margin-top:8px;">Log In</button>
+          </form>
+          <div class="login-hint">Demo credentials — Username: admin · Password: admin123</div>
+        </div>
+      </div>
+    </section>
+ 
+    <section id="adminDashboard">
+      <div class="wrap">
+        <div class="dash-topbar">
+          <div>
+            <h2>Welcome, Admin</h2>
+            <p>Manage every section of the site below — changes appear on the Home page instantly.</p>
+          </div>
+          <button class="btn btn-outline" id="logoutBtn" style="color:var(--ink);border-color:var(--line);">Log Out</button>
+        </div>
+ 
+        <p class="dash-section-title">Home Page — Hero &amp; About</p>
+        <div class="dash-grid">
+          <div class="dash-panel">
+            <h3>Edit Hero Section</h3>
+            <p class="hint">The welcome banner at the top of the Home page.</p>
+            <form class="dash-form" id="heroForm">
+              <input type="text" id="hEyebrow" class="full" placeholder="Eyebrow label">
+              <input type="text" id="hTitle" class="full" placeholder="Headline">
+              <textarea id="hText" class="full" placeholder="Intro paragraph"></textarea>
+              <input type="text" id="hS1n" placeholder="Stat 1 number"><input type="text" id="hS1l" placeholder="Stat 1 label">
+              <input type="text" id="hS2n" placeholder="Stat 2 number"><input type="text" id="hS2l" placeholder="Stat 2 label">
+              <input type="text" id="hS3n" placeholder="Stat 3 number"><input type="text" id="hS3l" placeholder="Stat 3 label">
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Save Hero</button>
+            </form>
+            <span class="save-note" id="heroSaved">Saved ✓</span>
+          </div>
+ 
+          <div class="dash-panel">
+            <h3>Edit About Section</h3>
+            <p class="hint">The "About the School" text on the Home page.</p>
+            <form class="dash-form" id="aboutForm">
+              <input type="text" id="abEyebrow" class="full" placeholder="Eyebrow label">
+              <input type="text" id="abTitle" class="full" placeholder="Heading">
+              <textarea id="abP1" class="full" placeholder="Paragraph 1"></textarea>
+              <textarea id="abP2" class="full" placeholder="Paragraph 2"></textarea>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Save About</button>
+            </form>
+            <span class="save-note" id="aboutSaved">Saved ✓</span>
+          </div>
+        </div>
+ 
+        <p class="dash-section-title">Home Page — Lists</p>
+        <div class="dash-grid">
+          <div class="dash-panel">
+            <h3>Manage Announcements</h3>
+            <p class="hint">Add or remove items shown on the School Announcements section.</p>
+            <form class="dash-form" id="announceForm">
+              <input type="text" id="aDay" placeholder="Day (e.g. 18)" required>
+              <input type="text" id="aMonth" placeholder="Month (e.g. Aug)" required>
+              <input type="text" id="aTag" placeholder="Tag (e.g. Enrollment)">
+              <input type="text" id="aTitle" class="full" placeholder="Announcement title" required>
+              <textarea id="aDesc" class="full" placeholder="Short description"></textarea>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Announcement</button>
+            </form>
+            <div class="dash-list" id="announceList"></div>
+          </div>
+ 
+          <div class="dash-panel">
+            <h3>Manage News &amp; Events</h3>
+            <p class="hint">Add or remove items shown on the News and Events section.</p>
+            <form class="dash-form" id="newsForm">
+              <input type="text" id="nCat" placeholder="Category (e.g. Academics)" required>
+              <input type="text" id="nTitle" placeholder="News title" required>
+              <textarea id="nDesc" class="full" placeholder="Short description"></textarea>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add News Item</button>
+            </form>
+            <div class="dash-list" id="newsList"></div>
+          </div>
+ 
+          <div class="dash-panel">
+            <h3>Manage Gallery</h3>
+            <p class="hint">Add or remove captions shown on the Photo Gallery section.</p>
+            <form class="dash-form" id="galleryForm">
+              <input type="text" id="gLabel" class="full" placeholder="Caption (e.g. Library)" required>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Photo Caption</button>
+            </form>
+            <div class="dash-list" id="galleryList"></div>
+          </div>
+ 
+          <div class="dash-panel">
+            <h3>Manage Downloadable Forms</h3>
+            <p class="hint">Add or remove items shown on the Downloadable Center.</p>
+            <form class="dash-form" id="downloadForm">
+              <input type="text" id="dCode" placeholder="Short code (e.g. EN)" required>
+              <input type="text" id="dTitle" placeholder="Document title" required>
+              <input type="text" id="dDesc" class="full" placeholder="Short description">
+              <input type="file" id="dFile" class="full" accept=".pdf,.doc,.docx,.xls,.xlsx" required>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Upload Document</button>
+            </form>
+            <div class="dash-list" id="downloadList"></div>
+          </div>
+ 
+          <div class="dash-panel">
+            <h3>Manage Achievements — Students</h3>
+            <p class="hint">Add or remove student achievement entries.</p>
+            <form class="dash-form" id="achStudentForm">
+              <input type="text" id="asRank" placeholder="Rank/Medal (e.g. 1st)" required>
+              <input type="text" id="asTitle" placeholder="Achievement title" required>
+              <textarea id="asDesc" class="full" placeholder="Short description"></textarea>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Student Achievement</button>
+            </form>
+            <div class="dash-list" id="achStudentList"></div>
+          </div>
+ 
+          <div class="dash-panel">
+            <h3>Manage Achievements — Teachers</h3>
+            <p class="hint">Add or remove teacher achievement entries.</p>
+            <form class="dash-form" id="achTeacherForm">
+              <input type="text" id="atRank" placeholder="Rank/Medal (e.g. MT-I)" required>
+              <input type="text" id="atTitle" placeholder="Achievement title" required>
+              <textarea id="atDesc" class="full" placeholder="Short description"></textarea>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Teacher Achievement</button>
+            </form>
+            <div class="dash-list" id="achTeacherList"></div>
+          </div>
+        </div>
+ 
+        <p class="dash-section-title">Home Page — Strands &amp; Contact</p>
+        <div class="dash-grid">
+          <div class="dash-panel">
+            <h3>Edit Strand Offerings</h3>
+            <p class="hint">One strand per line for each track.</p>
+            <form class="dash-form" id="strandForm">
+              <input type="text" id="stAcTitle" placeholder="Academic Track title">
+              <input type="text" id="stTvlTitle" placeholder="TVL Track title">
+              <textarea id="stAcDesc" placeholder="Academic Track description"></textarea>
+              <textarea id="stTvlDesc" placeholder="TVL Track description"></textarea>
+              <textarea id="stAcItems" class="full" placeholder="Academic strands, one per line"></textarea>
+              <textarea id="stTvlItems" class="full" placeholder="TVL strands, one per line"></textarea>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Save Strands</button>
+            </form>
+            <span class="save-note" id="strandSaved">Saved ✓</span>
+          </div>
+ 
+          <div class="dash-panel">
+            <h3>Edit Contact Info</h3>
+            <p class="hint">Address, phone, email, and map placeholder text.</p>
+            <form class="dash-form" id="contactForm">
+              <input type="text" id="cAddress" class="full" placeholder="Address">
+              <input type="text" id="cPhone" placeholder="Telephone">
+              <input type="text" id="cEmail" placeholder="Email">
+              <textarea id="cMap" class="full" placeholder="Map placeholder text"></textarea>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Save Contact Info</button>
+            </form>
+            <span class="save-note" id="contactSaved">Saved ✓</span>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+  </div>
+ 
+  </main>
+</div>
+ 
+<!-- ===== FOOTER (shared across all pages) ===== -->
+<footer>
+  <div class="wrap footer-top">
+    <div class="footer-brand">
+      <div class="seal"><span>INHS</span></div>
+      <p>Isulan National High School is committed to providing accessible, quality secondary education to the youth of Isulan, Sultan Kudarat.</p>
+    </div>
+    <div>
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#" data-page="home">Home</a></li>
+        <li><a href="#" data-page="achievements">School Achievements</a></li>
+        <li><a href="#" data-page="downloads">Downloadable Center</a></li>
+        <li><a href="#" data-page="admin">Admin Dashboard</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Portal</h5>
+      <ul>
+        <li><a href="#" data-page="home">Announcements</a></li>
+        <li><a href="#" data-page="home">News and Events</a></li>
+        <li><a href="#" data-page="home">Photo Gallery</a></li>
+        <li><a href="#" data-page="home">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Quick Contact</h5>
+      <ul>
+        <li>Isulan, Sultan Kudarat, Philippines</li>
+        <li>(064) 000 0000</li>
+        <li>info@inhs.edu.ph</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>Copyright © 2026. Isulan National High School. All Rights Reserved.</span>
+    <span>INHS One Portal</span>
+  </div>
+</footer>
+
+<!-- ===== Supabase connection ===== -->
+<!-- SUPABASE_URL / SUPABASE_ANON_KEY are injected at build time by build.js -->
+<!-- from the Netlify environment variables of the same names. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = "__SUPABASE_URL__";
+  const SUPABASE_ANON_KEY = "__SUPABASE_ANON_KEY__";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+ 
+<script>
+  /* ============================================================ */
+  /* SITE DATA — local cache, populated FROM Supabase on load.     */
+  /* Every save/add/delete in Admin writes through to Supabase;    */
+  /* this object is just what the page renders from.               */
+  /* ============================================================ */
+  let siteData = {
+    hero: { eyebrow:'', title:'', text:'', s1n:'', s1l:'', s2n:'', s2l:'', s3n:'', s3l:'' },
+    about: { eyebrow:'', title:'', p1:'', p2:'' },
+    strandAcademic: { title:'', desc:'', items:[] },
+    strandTVL: { title:'', desc:'', items:[] },
+    contact: { address:'', phone:'', email:'', map:'' },
+    announcements: [],
+    news: [],
+    gallery: [],
+    downloads: [],
+    achStudents: [],
+    achTeachers: []
+  };
+  const galleryColors = ['g1','g2','g3','g4','g5'];
+  let currentAdmin = null; // set once logged in & verified against public.admins
+
+  /* ===== Full screen toggle ===== */
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  function updateFullscreenLabel(){
+    const isFs = !!document.fullscreenElement;
+    fullscreenBtn.textContent = isFs ? '⛶ Exit Full Screen' : '⛶ Full Screen';
+    document.body.classList.toggle('is-fullscreen', isFs);
+  }
+  fullscreenBtn.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  });
+  document.addEventListener('fullscreenchange', updateFullscreenLabel);
+
+  /* ===== Menu dropdown (☰ Menu button, left side of header) ===== */
+  const menuBtn = document.getElementById('menuBtn');
+  const menuPanel = document.getElementById('menuPanel');
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = menuPanel.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  document.addEventListener('click', (e) => {
+    if (!menuPanel.contains(e.target) && e.target !== menuBtn) {
+      menuPanel.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* ===== Page routing (Home / Achievements / Downloads / Admin) ===== */
+  const pageViews = document.querySelectorAll('.page-view');
+  const navLinks = document.querySelectorAll('[data-page]');
+
+  function showPage(pageId){
+    pageViews.forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + pageId);
+    if (target) target.classList.add('active');
+
+    document.querySelectorAll('.menu-panel-link').forEach(l => l.classList.remove('current'));
+    document.querySelectorAll(`.menu-panel-link[data-page="${pageId}"]`).forEach(l => l.classList.add('current'));
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    menuPanel.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage(link.dataset.page);
+    });
+  });
+
+  /* ===== Achievements tabs ===== */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.achieve-grid').forEach(g => g.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  /* ===== Fade-up on scroll ===== */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ============================================================ */
+  /* SUPABASE: load all public content                             */
+  /* ============================================================ */
+  async function loadSiteDataFromSupabase(){
+    const [heroRes, aboutRes, contactRes, strandsRes, annRes, newsRes,
+           galRes, dlRes, asRes, atRes] = await Promise.all([
+      supabase.from('site_hero').select('*').eq('id', 1).maybeSingle(),
+      supabase.from('site_about').select('*').eq('id', 1).maybeSingle(),
+      supabase.from('site_contact').select('*').eq('id', 1).maybeSingle(),
+      supabase.from('strand_tracks').select('*').order('id'),
+      supabase.from('announcements').select('*').order('sort_order').order('created_at'),
+      supabase.from('news_events').select('*').order('sort_order').order('created_at'),
+      supabase.from('gallery_items').select('*').order('sort_order').order('created_at'),
+      supabase.from('downloadable_forms').select('*').order('sort_order').order('created_at'),
+      supabase.from('student_achievements').select('*').order('sort_order').order('created_at'),
+      supabase.from('teacher_achievements').select('*').order('sort_order').order('created_at'),
+    ]);
+
+    if (heroRes.data) {
+      const h = heroRes.data;
+      siteData.hero = { eyebrow:h.eyebrow||'', title:h.title||'', text:h.intro_text||'',
+        s1n:h.stat1_number||'', s1l:h.stat1_label||'', s2n:h.stat2_number||'', s2l:h.stat2_label||'',
+        s3n:h.stat3_number||'', s3l:h.stat3_label||'' };
+    }
+    if (aboutRes.data) {
+      const a = aboutRes.data;
+      siteData.about = { eyebrow:a.eyebrow||'', title:a.title||'', p1:a.paragraph_1||'', p2:a.paragraph_2||'' };
+    }
+    if (contactRes.data) {
+      const c = contactRes.data;
+      siteData.contact = { address:c.address||'', phone:c.phone||'', email:c.email||'', map:c.map_text||'' };
+    }
+    if (strandsRes.data) {
+      const ac = strandsRes.data.find(s => s.track_key === 'academic');
+      const tv = strandsRes.data.find(s => s.track_key === 'tvl');
+      if (ac) siteData.strandAcademic = { title:ac.title||'', desc:ac.description||'', items:ac.items||[] };
+      if (tv) siteData.strandTVL = { title:tv.title||'', desc:tv.description||'', items:tv.items||[] };
+    }
+    siteData.announcements = (annRes.data||[]).map(r => ({ id:r.id, day:r.day, month:r.month, tag:r.tag, title:r.title, desc:r.description }));
+    siteData.news = (newsRes.data||[]).map(r => ({ id:r.id, cat:r.category, title:r.title, desc:r.description }));
+    siteData.gallery = (galRes.data||[]).map(r => ({ id:r.id, label:r.label }));
+    siteData.downloads = (dlRes.data||[]).map(r => ({ id:r.id, code:r.code, title:r.title, desc:r.description, file_path:r.file_path, file_name:r.file_name }));
+    siteData.achStudents = (asRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description }));
+    siteData.achTeachers = (atRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description }));
+
+    renderAllPublic();
+  }
+
+  /* ============================================================ */
+  /* PUBLIC RENDER FUNCTIONS                                       */
+  /* ============================================================ */
+  function renderHeroPublic(){
+    const h = siteData.hero;
+    document.getElementById('heroEyebrow').textContent = h.eyebrow;
+    document.getElementById('heroTitle').textContent = h.title;
+    document.getElementById('heroText').textContent = h.text;
+    document.getElementById('heroStats').innerHTML = `
+      <div><strong>${h.s1n}</strong><span>${h.s1l}</span></div>
+      <div><strong>${h.s2n}</strong><span>${h.s2l}</span></div>
+      <div><strong>${h.s3n}</strong><span>${h.s3l}</span></div>`;
+  }
+
+  function renderAboutPublic(){
+    const a = siteData.about;
+    document.getElementById('aboutEyebrow').textContent = a.eyebrow;
+    document.getElementById('aboutTitle').textContent = a.title;
+    document.getElementById('aboutP1').textContent = a.p1;
+    document.getElementById('aboutP2').textContent = a.p2;
+  }
+
+  function renderAnnouncementsPublic(){
+    document.getElementById('announceListPublic').innerHTML = siteData.announcements.map(a => `
+      <div class="announce-item fade-up">
+        <div class="announce-date"><strong>${a.day}</strong><span>${a.month}</span></div>
+        <div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>
+        <span class="tag">${a.tag || 'General'}</span>
+      </div>`).join('') || '<p class="empty-note">No announcements yet.</p>';
+  }
+
+  function renderNewsPublic(){
+    document.getElementById('newsGridPublic').innerHTML = siteData.news.map((n, i) => `
+      <div class="news-card fade-up">
+        <div class="news-media ${galleryColors[i % galleryColors.length]}"><span>Event Photo</span></div>
+        <div class="news-body"><span class="eyebrow">${n.cat}</span><h4>${n.title}</h4><p>${n.desc || ''}</p><a href="#">Read More →</a></div>
+      </div>`).join('') || '<p class="empty-note">No news items yet.</p>';
+  }
+
+  function renderStrandsPublic(){
+    const ac = siteData.strandAcademic, tv = siteData.strandTVL;
+    document.getElementById('strandGridPublic').innerHTML = `
+      <div class="strand-card academic fade-up">
+        <h3>${ac.title}</h3><p>${ac.desc}</p>
+        <ul>${(ac.items||[]).map(i => `<li>${i}</li>`).join('')}</ul>
+      </div>
+      <div class="strand-card tvl fade-up">
+        <h3>${tv.title}</h3><p>${tv.desc}</p>
+        <ul>${(tv.items||[]).map(i => `<li>${i}</li>`).join('')}</ul>
+      </div>`;
+  }
+
+  function renderGalleryPublic(){
+    document.getElementById('galleryGridPublic').innerHTML = siteData.gallery.map((g, i) => `
+      <div class="gallery-item ${galleryColors[i % galleryColors.length]} fade-up"><span>${g.label}</span></div>`).join('') || '<p class="empty-note">No photos yet.</p>';
+  }
+
+  function renderContactPublic(){
+    const c = siteData.contact;
+    document.getElementById('mapBoxPublic').textContent = c.map;
+    document.getElementById('contactInfoPublic').innerHTML = `
+      <li>📍 <span><b>Address:</b> ${c.address}</span></li>
+      <li>📞 <span><b>Telephone:</b> ${c.phone}</span></li>
+      <li>✉ <span><b>Email:</b> ${c.email}</span></li>`;
+  }
+
+  function downloadPublicUrl(filePath){
+    if (!filePath) return '#';
+    const { data } = supabase.storage.from('downloads').getPublicUrl(filePath);
+    return data ? data.publicUrl : '#';
+  }
+
+  function renderDownloadsPublic(){
+    document.getElementById('downloadGridFront').innerHTML = siteData.downloads.map((d, i) => `
+      <a class="dl-card fade-up" href="${downloadPublicUrl(d.file_path)}" ${d.file_path ? 'download target="_blank" rel="noopener"' : ''}>
+        <div class="dl-media ${galleryColors[i % galleryColors.length]}"><span>${d.code}</span></div>
+        <div class="dl-card-body"><h4>${d.title}</h4><span>${d.desc || ''}</span></div>
+      </a>`).join('') || '<p class="empty-note">No documents yet.</p>';
+  }
+
+  function renderAchievementsPublic(){
+    document.getElementById('students').innerHTML = siteData.achStudents.map((a, i) => `
+      <div class="achieve-card"><div class="achieve-media ${galleryColors[i % galleryColors.length]}"></div><div class="rank">${a.rank}</div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>`).join('') || '<p class="empty-note">No student achievements yet.</p>';
+    document.getElementById('teachers').innerHTML = siteData.achTeachers.map((a, i) => `
+      <div class="achieve-card"><div class="achieve-media ${galleryColors[(i+2) % galleryColors.length]}"></div><div class="rank">${a.rank}</div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>`).join('') || '<p class="empty-note">No teacher achievements yet.</p>';
+  }
+
+  function renderAllPublic(){
+    renderHeroPublic(); renderAboutPublic(); renderAnnouncementsPublic(); renderNewsPublic();
+    renderStrandsPublic(); renderGalleryPublic(); renderContactPublic(); renderDownloadsPublic(); renderAchievementsPublic();
+  }
+
+  /* ============================================================ */
+  /* ADMIN: Supabase Auth                                          */
+  /* ============================================================ */
+  const loginForm = document.getElementById('loginForm');
+  const adminLoginSection = document.getElementById('adminLoginSection');
+  const loginError = document.getElementById('loginError');
+  const adminDashboard = document.getElementById('adminDashboard');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  async function verifyAdmin(userId){
+    const { data, error } = await supabase
+      .from('admins')
+      .select('id, username, full_name, role, is_active')
+      .eq('id', userId)
+      .eq('is_active', true)
+      .maybeSingle();
+    if (error || !data) return null;
+    return data;
+  }
+
+  async function enterDashboard(admin){
+    currentAdmin = admin;
+    loginError.style.display = 'none';
+    adminLoginSection.style.display = 'none';
+    adminDashboard.style.display = 'block';
+    document.querySelector('#adminDashboard h2').textContent = `Welcome, ${admin.full_name || admin.username}`;
+    await loadSiteDataFromSupabase();
+    fillAdminForms();
+  }
+
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('adminUser').value.trim();
+    const password = document.getElementById('adminPass').value;
+    loginError.style.display = 'none';
+
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error || !data.user) {
+      loginError.textContent = 'Incorrect username or password. Please try again.';
+      loginError.style.display = 'block';
+      return;
+    }
+    const admin = await verifyAdmin(data.user.id);
+    if (!admin) {
+      loginError.textContent = 'This account is not authorized for admin access.';
+      loginError.style.display = 'block';
+      await supabase.auth.signOut();
+      return;
+    }
+    loginForm.reset();
+    await enterDashboard(admin);
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    currentAdmin = null;
+    adminDashboard.style.display = 'none';
+    adminLoginSection.style.display = 'block';
+  });
+
+  // Restore session on page load (e.g. after a refresh while logged in)
+  async function restoreSessionIfAny(){
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session && session.user) {
+      const admin = await verifyAdmin(session.user.id);
+      if (admin) { await enterDashboard(admin); return; }
+    }
+  }
+
+  function flashSaved(id){
+    const el = document.getElementById(id);
+    el.style.display = 'inline-block';
+    setTimeout(() => el.style.display = 'none', 1800);
+  }
+
+  function fillAdminForms(){
+    const h = siteData.hero;
+    document.getElementById('hEyebrow').value = h.eyebrow;
+    document.getElementById('hTitle').value = h.title;
+    document.getElementById('hText').value = h.text;
+    document.getElementById('hS1n').value = h.s1n; document.getElementById('hS1l').value = h.s1l;
+    document.getElementById('hS2n').value = h.s2n; document.getElementById('hS2l').value = h.s2l;
+    document.getElementById('hS3n').value = h.s3n; document.getElementById('hS3l').value = h.s3l;
+
+    const a = siteData.about;
+    document.getElementById('abEyebrow').value = a.eyebrow;
+    document.getElementById('abTitle').value = a.title;
+    document.getElementById('abP1').value = a.p1;
+    document.getElementById('abP2').value = a.p2;
+
+    const ac = siteData.strandAcademic, tv = siteData.strandTVL;
+    document.getElementById('stAcTitle').value = ac.title;
+    document.getElementById('stTvlTitle').value = tv.title;
+    document.getElementById('stAcDesc').value = ac.desc;
+    document.getElementById('stTvlDesc').value = tv.desc;
+    document.getElementById('stAcItems').value = (ac.items||[]).join('\n');
+    document.getElementById('stTvlItems').value = (tv.items||[]).join('\n');
+
+    const c = siteData.contact;
+    document.getElementById('cAddress').value = c.address;
+    document.getElementById('cPhone').value = c.phone;
+    document.getElementById('cEmail').value = c.email;
+    document.getElementById('cMap').value = c.map;
+
+    renderAnnouncements(); renderNewsAdmin(); renderGalleryAdmin(); renderDownloads();
+    renderAchStudentsAdmin(); renderAchTeachersAdmin();
+  }
+
+  function adminErrorAlert(action, error){
+    console.error(action, error);
+    alert(`Could not ${action}: ${error.message || 'unknown error'}`);
+  }
+
+  /* ===== Hero form ===== */
+  document.getElementById('heroForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const payload = {
+      id: 1,
+      eyebrow: document.getElementById('hEyebrow').value.trim(),
+      title: document.getElementById('hTitle').value.trim(),
+      intro_text: document.getElementById('hText').value.trim(),
+      stat1_number: document.getElementById('hS1n').value.trim(), stat1_label: document.getElementById('hS1l').value.trim(),
+      stat2_number: document.getElementById('hS2n').value.trim(), stat2_label: document.getElementById('hS2l').value.trim(),
+      stat3_number: document.getElementById('hS3n').value.trim(), stat3_label: document.getElementById('hS3l').value.trim(),
+      updated_by: currentAdmin ? currentAdmin.id : null
+    };
+    const { error } = await supabase.from('site_hero').upsert(payload);
+    if (error) return adminErrorAlert('save hero section', error);
+    siteData.hero = { eyebrow:payload.eyebrow, title:payload.title, text:payload.intro_text,
+      s1n:payload.stat1_number, s1l:payload.stat1_label, s2n:payload.stat2_number, s2l:payload.stat2_label,
+      s3n:payload.stat3_number, s3l:payload.stat3_label };
+    renderHeroPublic();
+    flashSaved('heroSaved');
+  });
+
+  /* ===== About form ===== */
+  document.getElementById('aboutForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const payload = {
+      id: 1,
+      eyebrow: document.getElementById('abEyebrow').value.trim(),
+      title: document.getElementById('abTitle').value.trim(),
+      paragraph_1: document.getElementById('abP1').value.trim(),
+      paragraph_2: document.getElementById('abP2').value.trim(),
+      updated_by: currentAdmin ? currentAdmin.id : null
+    };
+    const { error } = await supabase.from('site_about').upsert(payload);
+    if (error) return adminErrorAlert('save about section', error);
+    siteData.about = { eyebrow:payload.eyebrow, title:payload.title, p1:payload.paragraph_1, p2:payload.paragraph_2 };
+    renderAboutPublic();
+    flashSaved('aboutSaved');
+  });
+
+  /* ===== Strands form ===== */
+  document.getElementById('strandForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const acPayload = {
+      id: 1, track_key: 'academic',
+      title: document.getElementById('stAcTitle').value.trim(),
+      description: document.getElementById('stAcDesc').value.trim(),
+      items: document.getElementById('stAcItems').value.split('\n').map(s => s.trim()).filter(Boolean),
+      updated_by: currentAdmin ? currentAdmin.id : null
+    };
+    const tvPayload = {
+      id: 2, track_key: 'tvl',
+      title: document.getElementById('stTvlTitle').value.trim(),
+      description: document.getElementById('stTvlDesc').value.trim(),
+      items: document.getElementById('stTvlItems').value.split('\n').map(s => s.trim()).filter(Boolean),
+      updated_by: currentAdmin ? currentAdmin.id : null
+    };
+    const { error } = await supabase.from('strand_tracks').upsert([acPayload, tvPayload]);
+    if (error) return adminErrorAlert('save strand offerings', error);
+    siteData.strandAcademic = { title:acPayload.title, desc:acPayload.description, items:acPayload.items };
+    siteData.strandTVL = { title:tvPayload.title, desc:tvPayload.description, items:tvPayload.items };
+    renderStrandsPublic();
+    flashSaved('strandSaved');
+  });
+
+  /* ===== Contact form ===== */
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const payload = {
+      id: 1,
+      address: document.getElementById('cAddress').value.trim(),
+      phone: document.getElementById('cPhone').value.trim(),
+      email: document.getElementById('cEmail').value.trim(),
+      map_text: document.getElementById('cMap').value.trim(),
+      updated_by: currentAdmin ? currentAdmin.id : null
+    };
+    const { error } = await supabase.from('site_contact').upsert(payload);
+    if (error) return adminErrorAlert('save contact info', error);
+    siteData.contact = { address:payload.address, phone:payload.phone, email:payload.email, map:payload.map_text };
+    renderContactPublic();
+    flashSaved('contactSaved');
+  });
+
+  /* ===== Announcements (list) ===== */
+  function renderAnnouncements(){
+    const list = document.getElementById('announceList');
+    if (!siteData.announcements.length){ list.innerHTML = '<p class="empty-note">No announcements yet.</p>'; return; }
+    list.innerHTML = siteData.announcements.map((a) => `
+      <div class="dash-list-item">
+        <div class="li-info"><span class="li-meta">${a.day} ${a.month} · ${a.tag || 'General'}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAnnouncement('${a.id}')">Delete</button>
+      </div>`).join('');
+  }
+  document.getElementById('announceForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const day = document.getElementById('aDay').value.trim();
+    const month = document.getElementById('aMonth').value.trim();
+    const tag = document.getElementById('aTag').value.trim();
+    const title = document.getElementById('aTitle').value.trim();
+    const desc = document.getElementById('aDesc').value.trim();
+    if (!day || !month || !title) return;
+    const { data, error } = await supabase.from('announcements')
+      .insert({ day, month, tag, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
+      .select().single();
+    if (error) return adminErrorAlert('add announcement', error);
+    siteData.announcements.unshift({ id:data.id, day, month, tag, title, desc });
+    renderAnnouncements(); renderAnnouncementsPublic();
+    e.target.reset();
+  });
+  async function deleteAnnouncement(id){
+    const { error } = await supabase.from('announcements').delete().eq('id', id);
+    if (error) return adminErrorAlert('delete announcement', error);
+    siteData.announcements = siteData.announcements.filter(a => a.id !== id);
+    renderAnnouncements(); renderAnnouncementsPublic();
+  }
+
+  /* ===== News (list) ===== */
+  function renderNewsAdmin(){
+    const list = document.getElementById('newsList');
+    if (!siteData.news.length){ list.innerHTML = '<p class="empty-note">No news items yet.</p>'; return; }
+    list.innerHTML = siteData.news.map((n) => `
+      <div class="dash-list-item">
+        <div class="li-info"><span class="li-meta">${n.cat}</span><h4>${n.title}</h4><span>${n.desc || ''}</span></div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteNews('${n.id}')">Delete</button>
+      </div>`).join('');
+  }
+  document.getElementById('newsForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const cat = document.getElementById('nCat').value.trim();
+    const title = document.getElementById('nTitle').value.trim();
+    const desc = document.getElementById('nDesc').value.trim();
+    if (!cat || !title) return;
+    const { data, error } = await supabase.from('news_events')
+      .insert({ category: cat, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
+      .select().single();
+    if (error) return adminErrorAlert('add news item', error);
+    siteData.news.unshift({ id:data.id, cat, title, desc });
+    renderNewsAdmin(); renderNewsPublic();
+    e.target.reset();
+  });
+  async function deleteNews(id){
+    const { error } = await supabase.from('news_events').delete().eq('id', id);
+    if (error) return adminErrorAlert('delete news item', error);
+    siteData.news = siteData.news.filter(n => n.id !== id);
+    renderNewsAdmin(); renderNewsPublic();
+  }
+
+  /* ===== Gallery (list) ===== */
+  function renderGalleryAdmin(){
+    const list = document.getElementById('galleryList');
+    if (!siteData.gallery.length){ list.innerHTML = '<p class="empty-note">No photos yet.</p>'; return; }
+    list.innerHTML = siteData.gallery.map((g) => `
+      <div class="dash-list-item">
+        <div class="li-info"><h4>${g.label}</h4></div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteGallery('${g.id}')">Delete</button>
+      </div>`).join('');
+  }
+  document.getElementById('galleryForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const label = document.getElementById('gLabel').value.trim();
+    if (!label) return;
+    const { data, error } = await supabase.from('gallery_items')
+      .insert({ label, created_by: currentAdmin ? currentAdmin.id : null })
+      .select().single();
+    if (error) return adminErrorAlert('add gallery caption', error);
+    siteData.gallery.push({ id:data.id, label });
+    renderGalleryAdmin(); renderGalleryPublic();
+    e.target.reset();
+  });
+  async function deleteGallery(id){
+    const { error } = await supabase.from('gallery_items').delete().eq('id', id);
+    if (error) return adminErrorAlert('delete gallery caption', error);
+    siteData.gallery = siteData.gallery.filter(g => g.id !== id);
+    renderGalleryAdmin(); renderGalleryPublic();
+  }
+
+  /* ===== Downloads (list + real file upload) ===== */
+  function renderDownloads(){
+    const list = document.getElementById('downloadList');
+    if (!siteData.downloads.length){ list.innerHTML = '<p class="empty-note">No documents yet.</p>'; return; }
+    list.innerHTML = siteData.downloads.map((d) => `
+      <div class="dash-list-item">
+        <div class="li-info"><span class="li-meta">${d.code}</span><h4>${d.title}</h4><span>${d.desc || ''}${d.file_name ? ' · ' + d.file_name : ''}</span></div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteDownload('${d.id}')">Delete</button>
+      </div>`).join('');
+  }
+  document.getElementById('downloadForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = document.getElementById('dCode').value.trim();
+    const title = document.getElementById('dTitle').value.trim();
+    const desc = document.getElementById('dDesc').value.trim();
+    const fileInput = document.getElementById('dFile');
+    const file = fileInput.files[0];
+    if (!code || !title || !file) return;
+
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    submitBtn.disabled = true; submitBtn.textContent = 'Uploading…';
+
+    const path = `forms/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
+    const { error: uploadError } = await supabase.storage.from('downloads').upload(path, file);
+    if (uploadError) {
+      submitBtn.disabled = false; submitBtn.textContent = 'Upload Document';
+      return adminErrorAlert('upload the file', uploadError);
+    }
+
+    const { data, error } = await supabase.from('downloadable_forms')
+      .insert({
+        code, title, description: desc,
+        file_path: path, file_name: file.name,
+        file_size_kb: Math.round(file.size / 1024), mime_type: file.type,
+        uploaded_by: currentAdmin ? currentAdmin.id : null
+      }).select().single();
+
+    submitBtn.disabled = false; submitBtn.textContent = 'Upload Document';
+    if (error) return adminErrorAlert('save the document record', error);
+
+    siteData.downloads.unshift({ id:data.id, code, title, desc, file_path:path, file_name:file.name });
+    renderDownloads(); renderDownloadsPublic();
+    e.target.reset();
+  });
+  async function deleteDownload(id){
+    const item = siteData.downloads.find(d => d.id === id);
+    if (item && item.file_path) {
+      await supabase.storage.from('downloads').remove([item.file_path]);
+    }
+    const { error } = await supabase.from('downloadable_forms').delete().eq('id', id);
+    if (error) return adminErrorAlert('delete document', error);
+    siteData.downloads = siteData.downloads.filter(d => d.id !== id);
+    renderDownloads(); renderDownloadsPublic();
+  }
+
+  /* ===== Achievements (lists) ===== */
+  function renderAchStudentsAdmin(){
+    const list = document.getElementById('achStudentList');
+    if (!siteData.achStudents.length){ list.innerHTML = '<p class="empty-note">No entries yet.</p>'; return; }
+    list.innerHTML = siteData.achStudents.map((a) => `
+      <div class="dash-list-item">
+        <div class="li-info"><span class="li-meta">${a.rank}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAchStudent('${a.id}')">Delete</button>
+      </div>`).join('');
+  }
+  document.getElementById('achStudentForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const rank = document.getElementById('asRank').value.trim();
+    const title = document.getElementById('asTitle').value.trim();
+    const desc = document.getElementById('asDesc').value.trim();
+    if (!rank || !title) return;
+    const { data, error } = await supabase.from('student_achievements')
+      .insert({ rank_label: rank, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
+      .select().single();
+    if (error) return adminErrorAlert('add student achievement', error);
+    siteData.achStudents.unshift({ id:data.id, rank, title, desc });
+    renderAchStudentsAdmin(); renderAchievementsPublic();
+    e.target.reset();
+  });
+  async function deleteAchStudent(id){
+    const { error } = await supabase.from('student_achievements').delete().eq('id', id);
+    if (error) return adminErrorAlert('delete student achievement', error);
+    siteData.achStudents = siteData.achStudents.filter(a => a.id !== id);
+    renderAchStudentsAdmin(); renderAchievementsPublic();
+  }
+
+  function renderAchTeachersAdmin(){
+    const list = document.getElementById('achTeacherList');
+    if (!siteData.achTeachers.length){ list.innerHTML = '<p class="empty-note">No entries yet.</p>'; return; }
+    list.innerHTML = siteData.achTeachers.map((a) => `
+      <div class="dash-list-item">
+        <div class="li-info"><span class="li-meta">${a.rank}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAchTeacher('${a.id}')">Delete</button>
+      </div>`).join('');
+  }
+  document.getElementById('achTeacherForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const rank = document.getElementById('atRank').value.trim();
+    const title = document.getElementById('atTitle').value.trim();
+    const desc = document.getElementById('atDesc').value.trim();
+    if (!rank || !title) return;
+    const { data, error } = await supabase.from('teacher_achievements')
+      .insert({ rank_label: rank, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
+      .select().single();
+    if (error) return adminErrorAlert('add teacher achievement', error);
+    siteData.achTeachers.unshift({ id:data.id, rank, title, desc });
+    renderAchTeachersAdmin(); renderAchievementsPublic();
+    e.target.reset();
+  });
+  async function deleteAchTeacher(id){
+    const { error } = await supabase.from('teacher_achievements').delete().eq('id', id);
+    if (error) return adminErrorAlert('delete teacher achievement', error);
+    siteData.achTeachers = siteData.achTeachers.filter(a => a.id !== id);
+    renderAchTeachersAdmin(); renderAchievementsPublic();
+  }
+
+  /* ===== Initial load ===== */
+  loadSiteDataFromSupabase();
+  restoreSessionIfAny();
+</script>
+ 
+</body>
+</html>
+ 
+
+ 
+
+ 
