@@ -328,7 +328,7 @@
       <div class="seal"><span>INHS</span></div>
       <div class="brand-text">
         <h1>Isulan National High School</h1>
-        <p>DEPED — SULTAN KUDARAT PROVINCE</p>
+        <p>DIVISION OF SULTAN KUDARAT</p>
         <a href="#" class="home-link" data-page="home">🏠 Home</a>
       </div>
     </div>
@@ -378,10 +378,10 @@
           <p id="aboutP1"></p>
           <p id="aboutP2"></p>
           <div class="about-facts">
-            <div class="fact"><strong>Junior HS</strong><span>Grades 7–10</span></div>
-            <div class="fact"><strong>Senior HS</strong><span>Grades 11–12</span></div>
-            <div class="fact"><strong>Academic Track</strong><span>ABM · HUMSS · STEM · GAS</span></div>
-            <div class="fact"><strong>TVL Track</strong><span>Home Economics · ICT · Agri-Fishery</span></div>
+            <div class="fact"><strong id="aboutF1t"></strong><span id="aboutF1d"></span></div>
+            <div class="fact"><strong id="aboutF2t"></strong><span id="aboutF2d"></span></div>
+            <div class="fact"><strong id="aboutF3t"></strong><span id="aboutF3d"></span></div>
+            <div class="fact"><strong id="aboutF4t"></strong><span id="aboutF4d"></span></div>
           </div>
         </div>
       </div>
@@ -530,12 +530,11 @@
           <div class="login-error" id="loginError">Incorrect username or password. Please try again.</div>
           <form class="login-form" id="loginForm">
             <label for="adminUser">Username</label>
-            <input type="text" id="adminUser" placeholder="Enter username" autocomplete="username" required>
+            <input type="text" id="adminUser" placeholder="Enter username" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" required>
             <label for="adminPass">Password</label>
             <input type="password" id="adminPass" placeholder="Enter password" autocomplete="current-password" required>
             <button type="submit" class="btn btn-primary" style="justify-content:center;margin-top:8px;">Log In</button>
           </form>
-          <div class="login-hint">Demo credentials — Username: admin · Password: admin123</div>
         </div>
       </div>
     </section>
@@ -562,9 +561,20 @@
               <input type="text" id="hS1n" placeholder="Stat 1 number"><input type="text" id="hS1l" placeholder="Stat 1 label">
               <input type="text" id="hS2n" placeholder="Stat 2 number"><input type="text" id="hS2l" placeholder="Stat 2 label">
               <input type="text" id="hS3n" placeholder="Stat 3 number"><input type="text" id="hS3l" placeholder="Stat 3 label">
-              <button type="submit" class="btn btn-green full" style="justify-content:center;">Save Hero</button>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Save Information</button>
             </form>
             <span class="save-note" id="heroSaved">Saved ✓</span>
+          </div>
+
+          <div class="dash-panel">
+            <h3>School Logo / Seal</h3>
+            <p class="hint">Upload the official school seal. It shows in the header, footer, and homepage banner.</p>
+            <form class="dash-form" id="sealForm">
+              <input type="file" id="sealImageInput" accept="image/*" class="full" required>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Upload Logo</button>
+            </form>
+            <button type="button" class="btn btn-danger btn-sm" id="removeSealBtn" style="margin-top:8px;">Remove Logo (use "INHS" text badge)</button>
+            <span class="save-note" id="sealSaved">Saved ✓</span>
           </div>
  
           <div class="dash-panel">
@@ -575,9 +585,28 @@
               <input type="text" id="abTitle" class="full" placeholder="Heading">
               <textarea id="abP1" class="full" placeholder="Paragraph 1"></textarea>
               <textarea id="abP2" class="full" placeholder="Paragraph 2"></textarea>
+              <input type="text" id="abF1t" placeholder="Fact 1 title (e.g. Junior HS)">
+              <input type="text" id="abF1d" placeholder="Fact 1 detail (e.g. Grades 7–10)">
+              <input type="text" id="abF2t" placeholder="Fact 2 title (e.g. Senior HS)">
+              <input type="text" id="abF2d" placeholder="Fact 2 detail (e.g. Grades 11–12)">
+              <input type="text" id="abF3t" placeholder="Fact 3 title (e.g. Academic Track)">
+              <input type="text" id="abF3d" placeholder="Fact 3 detail (e.g. ABM · HUMSS · STEM · GAS)">
+              <input type="text" id="abF4t" placeholder="Fact 4 title (e.g. TVL Track)">
+              <input type="text" id="abF4d" placeholder="Fact 4 detail (e.g. Home Economics · ICT · Agri-Fishery)">
               <button type="submit" class="btn btn-green full" style="justify-content:center;">Save About</button>
             </form>
             <span class="save-note" id="aboutSaved">Saved ✓</span>
+          </div>
+
+          <div class="dash-panel">
+            <h3>School Facade Photo</h3>
+            <p class="hint">Upload the school facade photo shown next to the About section.</p>
+            <form class="dash-form" id="facadeForm">
+              <input type="file" id="facadeImageInput" accept="image/*" class="full" required>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Upload Photo</button>
+            </form>
+            <button type="button" class="btn btn-danger btn-sm" id="removeFacadeBtn" style="margin-top:8px;">Remove Photo (use placeholder)</button>
+            <span class="save-note" id="facadeSaved">Saved ✓</span>
           </div>
         </div>
  
@@ -592,6 +621,7 @@
               <input type="text" id="aTag" placeholder="Tag (e.g. Enrollment)">
               <input type="text" id="aTitle" class="full" placeholder="Announcement title" required>
               <textarea id="aDesc" class="full" placeholder="Short description"></textarea>
+              <input type="file" id="aImage" accept="image/*" class="full">
               <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Announcement</button>
             </form>
             <div class="dash-list" id="announceList"></div>
@@ -604,6 +634,7 @@
               <input type="text" id="nCat" placeholder="Category (e.g. Academics)" required>
               <input type="text" id="nTitle" placeholder="News title" required>
               <textarea id="nDesc" class="full" placeholder="Short description"></textarea>
+              <input type="file" id="nImage" accept="image/*" class="full">
               <button type="submit" class="btn btn-green full" style="justify-content:center;">Add News Item</button>
             </form>
             <div class="dash-list" id="newsList"></div>
@@ -611,10 +642,11 @@
  
           <div class="dash-panel">
             <h3>Manage Gallery</h3>
-            <p class="hint">Add or remove captions shown on the Photo Gallery section.</p>
+            <p class="hint">Upload a photo — with an optional caption — to show in the Photo Gallery section.</p>
             <form class="dash-form" id="galleryForm">
-              <input type="text" id="gLabel" class="full" placeholder="Caption (e.g. Library)" required>
-              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Photo Caption</button>
+              <input type="file" id="gImage" accept="image/*" class="full" required>
+              <input type="text" id="gLabel" class="full" placeholder="Caption (optional, e.g. Library)">
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Photo</button>
             </form>
             <div class="dash-list" id="galleryList"></div>
           </div>
@@ -626,8 +658,7 @@
               <input type="text" id="dCode" placeholder="Short code (e.g. EN)" required>
               <input type="text" id="dTitle" placeholder="Document title" required>
               <input type="text" id="dDesc" class="full" placeholder="Short description">
-              <input type="file" id="dFile" class="full" accept=".pdf,.doc,.docx,.xls,.xlsx" required>
-              <button type="submit" class="btn btn-green full" style="justify-content:center;">Upload Document</button>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Document</button>
             </form>
             <div class="dash-list" id="downloadList"></div>
           </div>
@@ -639,6 +670,7 @@
               <input type="text" id="asRank" placeholder="Rank/Medal (e.g. 1st)" required>
               <input type="text" id="asTitle" placeholder="Achievement title" required>
               <textarea id="asDesc" class="full" placeholder="Short description"></textarea>
+              <input type="file" id="asImage" accept="image/*" class="full">
               <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Student Achievement</button>
             </form>
             <div class="dash-list" id="achStudentList"></div>
@@ -651,6 +683,7 @@
               <input type="text" id="atRank" placeholder="Rank/Medal (e.g. MT-I)" required>
               <input type="text" id="atTitle" placeholder="Achievement title" required>
               <textarea id="atDesc" class="full" placeholder="Short description"></textarea>
+              <input type="file" id="atImage" accept="image/*" class="full">
               <button type="submit" class="btn btn-green full" style="justify-content:center;">Add Teacher Achievement</button>
             </form>
             <div class="dash-list" id="achTeacherList"></div>
@@ -663,12 +696,16 @@
             <h3>Edit Strand Offerings</h3>
             <p class="hint">One strand per line for each track.</p>
             <form class="dash-form" id="strandForm">
-              <input type="text" id="stAcTitle" placeholder="Academic Track title">
-              <input type="text" id="stTvlTitle" placeholder="TVL Track title">
-              <textarea id="stAcDesc" placeholder="Academic Track description"></textarea>
-              <textarea id="stTvlDesc" placeholder="TVL Track description"></textarea>
-              <textarea id="stAcItems" class="full" placeholder="Academic strands, one per line"></textarea>
-              <textarea id="stTvlItems" class="full" placeholder="TVL strands, one per line"></textarea>
+              <p class="full" style="grid-column:1/-1;font-weight:700;margin:2px 0 -4px;">Academic Track</p>
+              <input type="text" id="stAcTitle" class="full" placeholder="Track title (e.g. Academic Track)">
+              <textarea id="stAcDesc" class="full" placeholder="Short description shown under the title"></textarea>
+              <textarea id="stAcItems" class="full" placeholder="Strands, one per line (e.g. ABM — Accountancy, Business & Management)"></textarea>
+
+              <p class="full" style="grid-column:1/-1;font-weight:700;margin:14px 0 -4px;border-top:1px solid var(--line);padding-top:16px;">TVL Track</p>
+              <input type="text" id="stTvlTitle" class="full" placeholder="Track title (e.g. TVL Track)">
+              <textarea id="stTvlDesc" class="full" placeholder="Short description shown under the title"></textarea>
+              <textarea id="stTvlItems" class="full" placeholder="Strands, one per line (e.g. ICT — Information & Communications Technology)"></textarea>
+
               <button type="submit" class="btn btn-green full" style="justify-content:center;">Save Strands</button>
             </form>
             <span class="save-note" id="strandSaved">Saved ✓</span>
@@ -685,6 +722,17 @@
               <button type="submit" class="btn btn-green full" style="justify-content:center;">Save Contact Info</button>
             </form>
             <span class="save-note" id="contactSaved">Saved ✓</span>
+          </div>
+
+          <div class="dash-panel">
+            <h3>Location Photo / Map</h3>
+            <p class="hint">Upload a map screenshot or location photo shown in the "Where to Find Us" box.</p>
+            <form class="dash-form" id="mapForm">
+              <input type="file" id="mapImageInput" accept="image/*" class="full" required>
+              <button type="submit" class="btn btn-green full" style="justify-content:center;">Upload Photo</button>
+            </form>
+            <button type="button" class="btn btn-danger btn-sm" id="removeMapBtn" style="margin-top:8px;">Remove Photo (use placeholder text)</button>
+            <span class="save-note" id="mapSaved">Saved ✓</span>
           </div>
         </div>
       </div>
@@ -734,44 +782,132 @@
     <span>INHS One Portal</span>
   </div>
 </footer>
-
-<!-- ===== Supabase connection ===== -->
-<!-- SUPABASE_URL / SUPABASE_ANON_KEY are injected at build time by build.js -->
-<!-- from the Netlify environment variables of the same names. -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  const SUPABASE_URL = "__SUPABASE_URL__";
-  const SUPABASE_ANON_KEY = "__SUPABASE_ANON_KEY__";
-  // The Supabase CDN library exposes itself globally as `supabase`.
-  // We grab createClient from it, then overwrite that same global with
-  // our actual client instance (no const/let here — that would collide
-  // with the global the library already created).
-  const { createClient } = supabase;
-  supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-</script>
  
 <script>
   /* ============================================================ */
-  /* SITE DATA — local cache, populated FROM Supabase on load.     */
-  /* Every save/add/delete in Admin writes through to Supabase;    */
-  /* this object is just what the page renders from.               */
+  /* SITE DATA (in-memory demo data — edit everything from Admin) */
   /* ============================================================ */
-  let siteData = {
-    hero: { eyebrow:'', title:'', text:'', s1n:'', s1l:'', s2n:'', s2l:'', s3n:'', s3l:'' },
-    about: { eyebrow:'', title:'', p1:'', p2:'' },
-    strandAcademic: { title:'', desc:'', items:[] },
-    strandTVL: { title:'', desc:'', items:[] },
-    contact: { address:'', phone:'', email:'', map:'' },
-    announcements: [],
-    news: [],
-    gallery: [],
-    downloads: [],
-    achStudents: [],
-    achTeachers: []
+  const SITE_DATA_KEY = 'inhs_site_data_v1';
+  const DEFAULT_SITE_DATA = {
+    sealImage: null,
+    facadeImage: null,
+    mapImage: null,
+    hero: {
+      eyebrow:'Official School Portal',
+      title:'Welcome to Isulan National High School',
+      text:"Nurturing Isulan's youth through quality instruction, values formation, and a portal built to keep students, teachers, and parents connected — anywhere, anytime.",
+      s1n:'3,400+', s1l:'Enrolled Students',
+      s2n:'120+', s2l:'Faculty & Staff',
+      s3n:'2', s3l:'Senior High Tracks'
+    },
+    about: {
+      eyebrow:'About the School',
+      title:'A public secondary school rooted in the heart of Isulan',
+      p1:'Isulan National High School (INHS) has served the Municipality of Isulan for generations, offering complete Junior and Senior High School education under the Department of Education. The school is committed to producing globally competitive, values-driven graduates ready for higher education, employment, or entrepreneurship.',
+      p2:"The INHS One Portal brings the school's key services online — from downloadable forms to announcements, achievements, and an administrator dashboard — so the whole school community stays informed in one place.",
+      f1t:'Junior HS', f1d:'Grades 7–10',
+      f2t:'Senior HS', f2d:'Grades 11–12',
+      f3t:'Academic Track', f3d:'ABM · HUMSS · STEM · GAS',
+      f4t:'TVL Track', f4d:'Home Economics · ICT · Agri-Fishery'
+    },
+    strandAcademic:{ title:'Academic Track', desc:'For students planning to pursue college degrees, with a strong foundation in general and specialized subjects.', items:['ABM — Accountancy, Business & Management','HUMSS — Humanities & Social Sciences','STEM — Science, Technology, Engineering & Math','GAS — General Academic Strand'] },
+    strandTVL:{ title:'TVL Track', desc:'Technical-Vocational-Livelihood strands that build hands-on, industry-ready skills for immediate employment.', items:['ICT — Information & Communications Technology','CSS — Computer Systems Servicing','Cookery','Beauty Care','Small Engine Servicing','Big Engine Servicing','Food Processing','EPAS — Electronic Products Assembly & Servicing'] },
+    contact:{ address:'Isulan National High School, Isulan, Sultan Kudarat', phone:'(064) 000 0000', email:'info@inhs.edu.ph', map:'Where to Find Us — Isulan, Sultan Kudarat (Map Embed Placeholder)' },
+    announcements:[
+      { day:'18', month:'Aug', tag:'Enrollment', title:'Enrollment for School Year Opens Next Week', desc:"Grade 7 and Grade 11 incoming students may begin submitting requirements at the registrar's office." },
+      { day:'25', month:'Aug', tag:'PTA', title:'General Parent-Teacher Conference', desc:'All advisers will meet with parents/guardians to discuss learner progress for the first quarter.' },
+      { day:'02', month:'Sep', tag:'Community', title:'Brigada Eskwela Volunteer Sign-Up', desc:'Parents and alumni are invited to join the annual school clean-up and repair drive.' }
+    ],
+    news:[
+      { cat:'Academics', title:'INHS Hosts Division-Wide Math Camp', desc:'Selected learners join a three-day training ahead of the regional competitions.' },
+      { cat:'Sports', title:'Intramurals 2026 Kicks Off', desc:'Four color teams compete in a week-long sportsfest across all grade levels.' },
+      { cat:'Community', title:'Foundation Day Celebration', desc:'Alumni and stakeholders gather to mark another year of service to Isulan.' }
+    ],
+    gallery:[ {label:'Main Gate'}, {label:"Principal's Office"}, {label:'Guidance Office'}, {label:'School Clinic'}, {label:'Flag Ceremony'} ],
+    downloads:[
+      { code:'EG', title:'Enrollment Guidelines', desc:'Step-by-step enrollment procedure' },
+      { code:'EF', title:'Enrollment Forms', desc:'Forms needed for enrollment' },
+      { code:'SC', title:'School Calendar', desc:'Official school year calendar' },
+      { code:'SH', title:'Student Handbook', desc:'Policies, rules & regulations' },
+      { code:'SM', title:'School Memoranda (Public)', desc:'Public advisories & memos' },
+      { code:'SF', title:'Scholarship Forms', desc:'Application forms for scholarships' },
+      { code:'AR', title:'Admission Requirements', desc:'Requirements for new students' }
+    ],
+    achStudents:[
+      { rank:'1st', title:'Regional Science Quiz Bee', desc:'Grade 10 — STEM preparatory class, Division Science Fair 2026.' },
+      { rank:'Gold', title:'Palarong Sultan Kudarat', desc:"Track and Field, Boys' 400m relay team." },
+      { rank:'Top 5', title:'Division Press Conference', desc:'School Paper — English Division, Editorial Cartooning.' }
+    ],
+    achTeachers:[
+      { rank:'MT-I', title:'Outstanding Master Teacher', desc:'Division-level recognition for innovative instruction, SY 2025–2026.' },
+      { rank:'Best', title:'Action Research Awardee', desc:'Regional In-Service Training research paper presentation.' },
+      { rank:'10 Yrs', title:'Loyalty & Service Award', desc:'Recognized for a decade of dedicated service to INHS.' }
+    ]
   };
-  const galleryColors = ['g1','g2','g3','g4','g5'];
-  let currentAdmin = null; // set once logged in & verified against public.admins
 
+  /* ============================================================ */
+  /* PERSISTENCE — save to / load from localStorage so admin      */
+  /* edits survive page reloads instead of resetting to defaults. */
+  /* ============================================================ */
+  function loadSiteData(){
+    try {
+      const raw = localStorage.getItem(SITE_DATA_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        // merge with defaults so new fields added later don't break old saved data
+        return Object.assign({}, JSON.parse(JSON.stringify(DEFAULT_SITE_DATA)), parsed);
+      }
+    } catch (err) {
+      console.error('Could not load saved site data, using defaults:', err);
+    }
+    return JSON.parse(JSON.stringify(DEFAULT_SITE_DATA));
+  }
+
+  function saveSiteData(){
+    try {
+      localStorage.setItem(SITE_DATA_KEY, JSON.stringify(siteData));
+    } catch (err) {
+      console.error('Could not save site data:', err);
+      alert('Warning: your change was applied on this page, but could not be saved to this browser\'s storage, so it may be lost on reload.');
+    }
+  }
+
+  let siteData = loadSiteData();
+
+  /* ============================================================ */
+  /* IMAGE UPLOAD HELPER                                           */
+  /* Resizes/compresses an uploaded photo before storing it, so    */
+  /* large phone-camera photos don't blow past the browser's       */
+  /* storage limit and fail to save.                                */
+  /* ============================================================ */
+  function resizeImageToDataURL(file, maxDim = 1280, quality = 0.75){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > height && width > maxDim) {
+            height = Math.round(height * (maxDim / width));
+            width = maxDim;
+          } else if (height > maxDim) {
+            width = Math.round(width * (maxDim / height));
+            height = maxDim;
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = () => reject(new Error('Could not read that image file.'));
+        img.src = reader.result;
+      };
+      reader.onerror = () => reject(new Error('Could not read that file.'));
+      reader.readAsDataURL(file);
+    });
+  }
+  const galleryColors = ['g1','g2','g3','g4','g5'];
+ 
   /* ===== Full screen toggle ===== */
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   function updateFullscreenLabel(){
@@ -787,7 +923,7 @@
     }
   });
   document.addEventListener('fullscreenchange', updateFullscreenLabel);
-
+ 
   /* ===== Menu dropdown (☰ Menu button, left side of header) ===== */
   const menuBtn = document.getElementById('menuBtn');
   const menuPanel = document.getElementById('menuPanel');
@@ -802,31 +938,31 @@
       menuBtn.setAttribute('aria-expanded', 'false');
     }
   });
-
+ 
   /* ===== Page routing (Home / Achievements / Downloads / Admin) ===== */
   const pageViews = document.querySelectorAll('.page-view');
   const navLinks = document.querySelectorAll('[data-page]');
-
+ 
   function showPage(pageId){
     pageViews.forEach(p => p.classList.remove('active'));
     const target = document.getElementById('page-' + pageId);
     if (target) target.classList.add('active');
-
+ 
     document.querySelectorAll('.menu-panel-link').forEach(l => l.classList.remove('current'));
     document.querySelectorAll(`.menu-panel-link[data-page="${pageId}"]`).forEach(l => l.classList.add('current'));
-
+ 
     window.scrollTo({ top: 0, behavior: 'auto' });
     menuPanel.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
   }
-
+ 
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       showPage(link.dataset.page);
     });
   });
-
+ 
   /* ===== Achievements tabs ===== */
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -836,88 +972,20 @@
       document.getElementById(btn.dataset.tab).classList.add('active');
     });
   });
-
-  /* ===== Fade-up on scroll ===== */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  /* ============================================================ */
-  /* SUPABASE: load all public content                             */
-  /* ============================================================ */
-  async function loadSiteDataFromSupabase(){
-    const [heroRes, aboutRes, contactRes, strandsRes, annRes, newsRes,
-           galRes, dlRes, asRes, atRes] = await Promise.all([
-      supabase.from('site_hero').select('*').eq('id', 1).maybeSingle(),
-      supabase.from('site_about').select('*').eq('id', 1).maybeSingle(),
-      supabase.from('site_contact').select('*').eq('id', 1).maybeSingle(),
-      supabase.from('strand_tracks').select('*').order('id'),
-      supabase.from('announcements').select('*').order('sort_order').order('created_at'),
-      supabase.from('news_events').select('*').order('sort_order').order('created_at'),
-      supabase.from('gallery_items').select('*').order('sort_order').order('created_at'),
-      supabase.from('downloadable_forms').select('*').order('sort_order').order('created_at'),
-      supabase.from('student_achievements').select('*').order('sort_order').order('created_at'),
-      supabase.from('teacher_achievements').select('*').order('sort_order').order('created_at'),
-    ]);
-
-    // Log any per-table errors loudly instead of letting them silently
-    // block every other section from rendering.
-    [heroRes, aboutRes, contactRes, strandsRes, annRes, newsRes, galRes, dlRes, asRes, atRes]
-      .forEach((r, i) => { if (r && r.error) console.error('Supabase load error [' + i + ']:', r.error); });
-
-    try {
-      if (heroRes.data) {
-        const h = heroRes.data;
-        siteData.hero = { eyebrow:h.eyebrow||'', title:h.title||'', text:h.intro_text||'',
-          s1n:h.stat1_number||'', s1l:h.stat1_label||'', s2n:h.stat2_number||'', s2l:h.stat2_label||'',
-          s3n:h.stat3_number||'', s3l:h.stat3_label||'' };
-      }
-    } catch (e) { console.error('hero mapping failed:', e); }
-
-    try {
-      if (aboutRes.data) {
-        const a = aboutRes.data;
-        siteData.about = { eyebrow:a.eyebrow||'', title:a.title||'', p1:a.paragraph_1||'', p2:a.paragraph_2||'' };
-      }
-    } catch (e) { console.error('about mapping failed:', e); }
-
-    try {
-      if (contactRes.data) {
-        const c = contactRes.data;
-        siteData.contact = { address:c.address||'', phone:c.phone||'', email:c.email||'', map:c.map_text||'' };
-      }
-    } catch (e) { console.error('contact mapping failed:', e); }
-
-    try {
-      const strandRows = strandsRes.data || [];
-      const ac = strandRows.find(s => s.track_key === 'academic');
-      const tv = strandRows.find(s => s.track_key === 'tvl');
-      if (ac) siteData.strandAcademic = { title:ac.title||'', desc:ac.description||'', items:ac.items||[] };
-      if (tv) siteData.strandTVL = { title:tv.title||'', desc:tv.description||'', items:tv.items||[] };
-    } catch (e) { console.error('strands mapping failed:', e); }
-
-    try { siteData.announcements = (annRes.data||[]).map(r => ({ id:r.id, day:r.day, month:r.month, tag:r.tag, title:r.title, desc:r.description })); }
-    catch (e) { console.error('announcements mapping failed:', e); }
-
-    try { siteData.news = (newsRes.data||[]).map(r => ({ id:r.id, cat:r.category, title:r.title, desc:r.description })); }
-    catch (e) { console.error('news mapping failed:', e); }
-
-    try { siteData.gallery = (galRes.data||[]).map(r => ({ id:r.id, label:r.label })); }
-    catch (e) { console.error('gallery mapping failed:', e); }
-
-    try { siteData.downloads = (dlRes.data||[]).map(r => ({ id:r.id, code:r.code, title:r.title, desc:r.description, file_path:r.file_path, file_name:r.file_name })); }
-    catch (e) { console.error('downloads mapping failed:', e); }
-
-    try { siteData.achStudents = (asRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description })); }
-    catch (e) { console.error('achStudents mapping failed:', e); }
-
-    try { siteData.achTeachers = (atRes.data||[]).map(r => ({ id:r.id, rank:r.rank_label, title:r.title, desc:r.description })); }
-    catch (e) { console.error('achTeachers mapping failed:', e); }
-
-    renderAllPublic();
+ 
+  /* ===== Fade-up reveal =====
+     Content used to only fade in once scrolled into view. That meant
+     anything an admin saved (announcements, news, etc.) stayed invisible
+     until a visitor happened to scroll to that exact section — looking
+     like it "disappeared". Now everything reveals itself right after it's
+     rendered, so admin-saved content is guaranteed visible immediately. */
+  function refreshFadeUps(){
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.fade-up:not(.in)').forEach(el => el.classList.add('in'));
+    });
   }
-
+  refreshFadeUps();
+ 
   /* ============================================================ */
   /* PUBLIC RENDER FUNCTIONS                                       */
   /* ============================================================ */
@@ -931,160 +999,181 @@
       <div><strong>${h.s2n}</strong><span>${h.s2l}</span></div>
       <div><strong>${h.s3n}</strong><span>${h.s3l}</span></div>`;
   }
-
+ 
   function renderAboutPublic(){
     const a = siteData.about;
     document.getElementById('aboutEyebrow').textContent = a.eyebrow;
     document.getElementById('aboutTitle').textContent = a.title;
     document.getElementById('aboutP1').textContent = a.p1;
     document.getElementById('aboutP2').textContent = a.p2;
+    document.getElementById('aboutF1t').textContent = a.f1t; document.getElementById('aboutF1d').textContent = a.f1d;
+    document.getElementById('aboutF2t').textContent = a.f2t; document.getElementById('aboutF2d').textContent = a.f2d;
+    document.getElementById('aboutF3t').textContent = a.f3t; document.getElementById('aboutF3d').textContent = a.f3d;
+    document.getElementById('aboutF4t').textContent = a.f4t; document.getElementById('aboutF4d').textContent = a.f4d;
   }
-
+ 
   function renderAnnouncementsPublic(){
     document.getElementById('announceListPublic').innerHTML = siteData.announcements.map(a => `
       <div class="announce-item fade-up">
         <div class="announce-date"><strong>${a.day}</strong><span>${a.month}</span></div>
-        <div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          ${a.image ? `<img src="${a.image}" alt="" style="width:56px;height:56px;object-fit:cover;border-radius:10px;flex-shrink:0;">` : ''}
+          <div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>
+        </div>
         <span class="tag">${a.tag || 'General'}</span>
       </div>`).join('') || '<p class="empty-note">No announcements yet.</p>';
+    refreshFadeUps();
   }
-
+ 
   function renderNewsPublic(){
-    document.getElementById('newsGridPublic').innerHTML = siteData.news.map((n, i) => `
-      <div class="news-card fade-up">
-        <div class="news-media ${galleryColors[i % galleryColors.length]}"><span>Event Photo</span></div>
-        <div class="news-body"><span class="eyebrow">${n.cat}</span><h4>${n.title}</h4><p>${n.desc || ''}</p><a href="#">Read More →</a></div>
-      </div>`).join('') || '<p class="empty-note">No news items yet.</p>';
+    document.getElementById('newsGridPublic').innerHTML = siteData.news.map((n, i) => {
+      const colorClass = n.image ? '' : galleryColors[i % galleryColors.length];
+      const bgStyle = n.image ? ` style="background-image:url('${n.image}');background-size:cover;background-position:center;"` : '';
+      const mediaInner = n.image ? '' : '<span>Event Photo</span>';
+      const card = '<div class="news-card fade-up">'
+        + '<div class="news-media ' + colorClass + '"' + bgStyle + '>' + mediaInner + '</div>'
+        + '<div class="news-body"><span class="eyebrow">' + n.cat + '</span><h4>' + n.title + '</h4><p>' + (n.desc || '') + '</p><a href="#">Read More &#8594;</a></div>'
+        + '</div>';
+      return card;
+    }).join('') || '<p class="empty-note">No news items yet.</p>';
+    refreshFadeUps();
   }
-
+ 
   function renderStrandsPublic(){
     const ac = siteData.strandAcademic, tv = siteData.strandTVL;
     document.getElementById('strandGridPublic').innerHTML = `
       <div class="strand-card academic fade-up">
         <h3>${ac.title}</h3><p>${ac.desc}</p>
-        <ul>${(ac.items||[]).map(i => `<li>${i}</li>`).join('')}</ul>
+        <ul>${ac.items.map(i => `<li>${i}</li>`).join('')}</ul>
       </div>
       <div class="strand-card tvl fade-up">
         <h3>${tv.title}</h3><p>${tv.desc}</p>
-        <ul>${(tv.items||[]).map(i => `<li>${i}</li>`).join('')}</ul>
+        <ul>${tv.items.map(i => `<li>${i}</li>`).join('')}</ul>
       </div>`;
+    refreshFadeUps();
   }
-
+ 
   function renderGalleryPublic(){
-    document.getElementById('galleryGridPublic').innerHTML = siteData.gallery.map((g, i) => `
-      <div class="gallery-item ${galleryColors[i % galleryColors.length]} fade-up"><span>${g.label}</span></div>`).join('') || '<p class="empty-note">No photos yet.</p>';
+    document.getElementById('galleryGridPublic').innerHTML = siteData.gallery.map((g, i) => {
+      const colorClass = g.image ? '' : galleryColors[i % galleryColors.length];
+      const bgStyle = g.image ? ` style="background-image:url('${g.image}');background-size:cover;background-position:center;"` : '';
+      return `<div class="gallery-item ${colorClass} fade-up"${bgStyle}><span>${g.label || ''}</span></div>`;
+    }).join('') || '<p class="empty-note">No photos yet.</p>';
+    refreshFadeUps();
   }
-
+ 
   function renderContactPublic(){
     const c = siteData.contact;
-    document.getElementById('mapBoxPublic').textContent = c.map;
+    const mapBox = document.getElementById('mapBoxPublic');
+    if (siteData.mapImage) {
+      mapBox.textContent = '';
+      mapBox.style.backgroundImage = `url('${siteData.mapImage}')`;
+      mapBox.style.backgroundSize = 'cover';
+      mapBox.style.backgroundPosition = 'center';
+    } else {
+      mapBox.textContent = c.map;
+      mapBox.style.backgroundImage = '';
+    }
     document.getElementById('contactInfoPublic').innerHTML = `
       <li>📍 <span><b>Address:</b> ${c.address}</span></li>
       <li>📞 <span><b>Telephone:</b> ${c.phone}</span></li>
       <li>✉ <span><b>Email:</b> ${c.email}</span></li>`;
   }
-
-  function downloadPublicUrl(filePath){
-    if (!filePath) return '#';
-    const { data } = supabase.storage.from('downloads').getPublicUrl(filePath);
-    return data ? data.publicUrl : '#';
-  }
-
+ 
   function renderDownloadsPublic(){
     document.getElementById('downloadGridFront').innerHTML = siteData.downloads.map((d, i) => `
-      <a class="dl-card fade-up" href="${downloadPublicUrl(d.file_path)}" ${d.file_path ? 'download target="_blank" rel="noopener"' : ''}>
+      <a class="dl-card fade-up">
         <div class="dl-media ${galleryColors[i % galleryColors.length]}"><span>${d.code}</span></div>
         <div class="dl-card-body"><h4>${d.title}</h4><span>${d.desc || ''}</span></div>
       </a>`).join('') || '<p class="empty-note">No documents yet.</p>';
+    refreshFadeUps();
+  }
+ 
+  function renderAchievementsPublic(){
+    document.getElementById('students').innerHTML = siteData.achStudents.map((a, i) => {
+      const colorClass = a.image ? '' : galleryColors[i % galleryColors.length];
+      const bgStyle = a.image ? ` style="background-image:url('${a.image}');background-size:cover;background-position:center;"` : '';
+      return `<div class="achieve-card"><div class="achieve-media ${colorClass}"${bgStyle}></div><div class="rank">${a.rank}</div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>`;
+    }).join('') || '<p class="empty-note">No student achievements yet.</p>';
+    document.getElementById('teachers').innerHTML = siteData.achTeachers.map((a, i) => {
+      const colorClass = a.image ? '' : galleryColors[(i+2) % galleryColors.length];
+      const bgStyle = a.image ? ` style="background-image:url('${a.image}');background-size:cover;background-position:center;"` : '';
+      return `<div class="achieve-card"><div class="achieve-media ${colorClass}"${bgStyle}></div><div class="rank">${a.rank}</div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>`;
+    }).join('') || '<p class="empty-note">No teacher achievements yet.</p>';
+  }
+ 
+  function renderSealPublic(){
+    const smallHtml = siteData.sealImage
+      ? `<img src="${siteData.sealImage}" alt="School Seal" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+      : `<span>INHS</span>`;
+    document.querySelectorAll('.seal').forEach(el => el.innerHTML = smallHtml);
+
+    const lg = document.querySelector('.seal-lg');
+    if (lg) {
+      lg.innerHTML = siteData.sealImage
+        ? `<img src="${siteData.sealImage}" alt="School Seal" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+        : `<strong>INHS</strong><span>Est. Isulan</span>`;
+    }
   }
 
-  function renderAchievementsPublic(){
-    document.getElementById('students').innerHTML = siteData.achStudents.map((a, i) => `
-      <div class="achieve-card"><div class="achieve-media ${galleryColors[i % galleryColors.length]}"></div><div class="rank">${a.rank}</div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>`).join('') || '<p class="empty-note">No student achievements yet.</p>';
-    document.getElementById('teachers').innerHTML = siteData.achTeachers.map((a, i) => `
-      <div class="achieve-card"><div class="achieve-media ${galleryColors[(i+2) % galleryColors.length]}"></div><div class="rank">${a.rank}</div><h4>${a.title}</h4><p>${a.desc || ''}</p></div>`).join('') || '<p class="empty-note">No teacher achievements yet.</p>';
+  function renderFacadePublic(){
+    const el = document.querySelector('.about-media');
+    if (!el) return;
+    if (siteData.facadeImage) {
+      el.innerHTML = '';
+      el.style.backgroundImage = `url('${siteData.facadeImage}')`;
+      el.style.backgroundSize = 'cover';
+      el.style.backgroundPosition = 'center';
+    } else {
+      el.innerHTML = '<span>School Facade<br>Photo Placeholder</span>';
+      el.style.backgroundImage = '';
+    }
   }
 
   function renderAllPublic(){
     renderHeroPublic(); renderAboutPublic(); renderAnnouncementsPublic(); renderNewsPublic();
     renderStrandsPublic(); renderGalleryPublic(); renderContactPublic(); renderDownloadsPublic(); renderAchievementsPublic();
+    renderSealPublic(); renderFacadePublic();
   }
-
+ 
   /* ============================================================ */
-  /* ADMIN: Supabase Auth                                          */
+  /* ADMIN: demo auth                                              */
   /* ============================================================ */
+  const ADMIN_USER = 'admin';
+  const ADMIN_PASS = 'admin123';
+ 
   const loginForm = document.getElementById('loginForm');
   const adminLoginSection = document.getElementById('adminLoginSection');
   const loginError = document.getElementById('loginError');
   const adminDashboard = document.getElementById('adminDashboard');
   const logoutBtn = document.getElementById('logoutBtn');
-
-  async function verifyAdmin(userId){
-    const { data, error } = await supabase
-      .from('admins')
-      .select('id, username, full_name, role, is_active')
-      .eq('id', userId)
-      .eq('is_active', true)
-      .maybeSingle();
-    if (error || !data) return null;
-    return data;
-  }
-
-  async function enterDashboard(admin){
-    currentAdmin = admin;
-    loginError.style.display = 'none';
-    adminLoginSection.style.display = 'none';
-    adminDashboard.style.display = 'block';
-    document.querySelector('#adminDashboard h2').textContent = `Welcome, ${admin.full_name || admin.username}`;
-    await loadSiteDataFromSupabase();
-    fillAdminForms();
-  }
-
-  loginForm.addEventListener('submit', async (e) => {
+ 
+  loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = document.getElementById('adminUser').value.trim();
-    const password = document.getElementById('adminPass').value;
-    loginError.style.display = 'none';
-
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error || !data.user) {
-      loginError.textContent = 'Incorrect username or password. Please try again.';
+    const u = document.getElementById('adminUser').value.trim();
+    const p = document.getElementById('adminPass').value;
+    if (u.toLowerCase() === ADMIN_USER.toLowerCase() && p === ADMIN_PASS) {
+      loginError.style.display = 'none';
+      adminLoginSection.style.display = 'none';
+      adminDashboard.style.display = 'block';
+      loginForm.reset();
+      fillAdminForms();
+    } else {
       loginError.style.display = 'block';
-      return;
     }
-    const admin = await verifyAdmin(data.user.id);
-    if (!admin) {
-      loginError.textContent = 'This account is not authorized for admin access.';
-      loginError.style.display = 'block';
-      await supabase.auth.signOut();
-      return;
-    }
-    loginForm.reset();
-    await enterDashboard(admin);
   });
-
-  logoutBtn.addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    currentAdmin = null;
+ 
+  logoutBtn.addEventListener('click', () => {
     adminDashboard.style.display = 'none';
     adminLoginSection.style.display = 'block';
   });
-
-  // Restore session on page load (e.g. after a refresh while logged in)
-  async function restoreSessionIfAny(){
-    const { data: { session } } = await supabase.auth.getSession();
-    if (session && session.user) {
-      const admin = await verifyAdmin(session.user.id);
-      if (admin) { await enterDashboard(admin); return; }
-    }
-  }
-
+ 
   function flashSaved(id){
     const el = document.getElementById(id);
     el.style.display = 'inline-block';
     setTimeout(() => el.style.display = 'none', 1800);
   }
-
+ 
   function fillAdminForms(){
     const h = siteData.hero;
     document.getElementById('hEyebrow').value = h.eyebrow;
@@ -1093,127 +1182,205 @@
     document.getElementById('hS1n').value = h.s1n; document.getElementById('hS1l').value = h.s1l;
     document.getElementById('hS2n').value = h.s2n; document.getElementById('hS2l').value = h.s2l;
     document.getElementById('hS3n').value = h.s3n; document.getElementById('hS3l').value = h.s3l;
-
+ 
     const a = siteData.about;
     document.getElementById('abEyebrow').value = a.eyebrow;
     document.getElementById('abTitle').value = a.title;
     document.getElementById('abP1').value = a.p1;
     document.getElementById('abP2').value = a.p2;
-
+    document.getElementById('abF1t').value = a.f1t; document.getElementById('abF1d').value = a.f1d;
+    document.getElementById('abF2t').value = a.f2t; document.getElementById('abF2d').value = a.f2d;
+    document.getElementById('abF3t').value = a.f3t; document.getElementById('abF3d').value = a.f3d;
+    document.getElementById('abF4t').value = a.f4t; document.getElementById('abF4d').value = a.f4d;
+ 
     const ac = siteData.strandAcademic, tv = siteData.strandTVL;
     document.getElementById('stAcTitle').value = ac.title;
     document.getElementById('stTvlTitle').value = tv.title;
     document.getElementById('stAcDesc').value = ac.desc;
     document.getElementById('stTvlDesc').value = tv.desc;
-    document.getElementById('stAcItems').value = (ac.items||[]).join('\n');
-    document.getElementById('stTvlItems').value = (tv.items||[]).join('\n');
-
+    document.getElementById('stAcItems').value = ac.items.join('\n');
+    document.getElementById('stTvlItems').value = tv.items.join('\n');
+ 
     const c = siteData.contact;
     document.getElementById('cAddress').value = c.address;
     document.getElementById('cPhone').value = c.phone;
     document.getElementById('cEmail').value = c.email;
     document.getElementById('cMap').value = c.map;
-
+ 
     renderAnnouncements(); renderNewsAdmin(); renderGalleryAdmin(); renderDownloads();
     renderAchStudentsAdmin(); renderAchTeachersAdmin();
   }
-
-  function adminErrorAlert(action, error){
-    console.error(action, error);
-    alert(`Could not ${action}: ${error.message || 'unknown error'}`);
-  }
-
+ 
   /* ===== Hero form ===== */
-  document.getElementById('heroForm').addEventListener('submit', async (e) => {
+  document.getElementById('heroForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const payload = {
-      id: 1,
+    siteData.hero = {
       eyebrow: document.getElementById('hEyebrow').value.trim(),
       title: document.getElementById('hTitle').value.trim(),
-      intro_text: document.getElementById('hText').value.trim(),
-      stat1_number: document.getElementById('hS1n').value.trim(), stat1_label: document.getElementById('hS1l').value.trim(),
-      stat2_number: document.getElementById('hS2n').value.trim(), stat2_label: document.getElementById('hS2l').value.trim(),
-      stat3_number: document.getElementById('hS3n').value.trim(), stat3_label: document.getElementById('hS3l').value.trim(),
-      updated_by: currentAdmin ? currentAdmin.id : null
+      text: document.getElementById('hText').value.trim(),
+      s1n: document.getElementById('hS1n').value.trim(), s1l: document.getElementById('hS1l').value.trim(),
+      s2n: document.getElementById('hS2n').value.trim(), s2l: document.getElementById('hS2l').value.trim(),
+      s3n: document.getElementById('hS3n').value.trim(), s3l: document.getElementById('hS3l').value.trim()
     };
-    const { error } = await supabase.from('site_hero').upsert(payload);
-    if (error) return adminErrorAlert('save hero section', error);
-    siteData.hero = { eyebrow:payload.eyebrow, title:payload.title, text:payload.intro_text,
-      s1n:payload.stat1_number, s1l:payload.stat1_label, s2n:payload.stat2_number, s2l:payload.stat2_label,
-      s3n:payload.stat3_number, s3l:payload.stat3_label };
     renderHeroPublic();
+    saveSiteData();
     flashSaved('heroSaved');
   });
 
-  /* ===== About form ===== */
-  document.getElementById('aboutForm').addEventListener('submit', async (e) => {
+  /* ===== School Logo / Seal ===== */
+  document.getElementById('sealForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const payload = {
-      id: 1,
+    const file = document.getElementById('sealImageInput').files[0];
+    if (!file) return;
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading…';
+    try {
+      const dataUrl = await resizeImageToDataURL(file, 600, 0.85);
+      siteData.sealImage = dataUrl;
+      renderSealPublic();
+      saveSiteData();
+      e.target.reset();
+      flashSaved('sealSaved');
+    } catch (err) {
+      console.error('Seal upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+  document.getElementById('removeSealBtn').addEventListener('click', () => {
+    siteData.sealImage = null;
+    renderSealPublic();
+    saveSiteData();
+    flashSaved('sealSaved');
+  });
+
+  /* ===== School Facade Photo ===== */
+  document.getElementById('facadeForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const file = document.getElementById('facadeImageInput').files[0];
+    if (!file) return;
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading…';
+    try {
+      const dataUrl = await resizeImageToDataURL(file);
+      siteData.facadeImage = dataUrl;
+      renderFacadePublic();
+      saveSiteData();
+      e.target.reset();
+      flashSaved('facadeSaved');
+    } catch (err) {
+      console.error('Facade photo upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+  document.getElementById('removeFacadeBtn').addEventListener('click', () => {
+    siteData.facadeImage = null;
+    renderFacadePublic();
+    saveSiteData();
+    flashSaved('facadeSaved');
+  });
+
+  /* ===== Location Photo / Map ===== */
+  document.getElementById('mapForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const file = document.getElementById('mapImageInput').files[0];
+    if (!file) return;
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading…';
+    try {
+      const dataUrl = await resizeImageToDataURL(file);
+      siteData.mapImage = dataUrl;
+      renderContactPublic();
+      saveSiteData();
+      e.target.reset();
+      flashSaved('mapSaved');
+    } catch (err) {
+      console.error('Map photo upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+  document.getElementById('removeMapBtn').addEventListener('click', () => {
+    siteData.mapImage = null;
+    renderContactPublic();
+    saveSiteData();
+    flashSaved('mapSaved');
+  });
+ 
+  /* ===== About form ===== */
+  document.getElementById('aboutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    siteData.about = {
       eyebrow: document.getElementById('abEyebrow').value.trim(),
       title: document.getElementById('abTitle').value.trim(),
-      paragraph_1: document.getElementById('abP1').value.trim(),
-      paragraph_2: document.getElementById('abP2').value.trim(),
-      updated_by: currentAdmin ? currentAdmin.id : null
+      p1: document.getElementById('abP1').value.trim(),
+      p2: document.getElementById('abP2').value.trim(),
+      f1t: document.getElementById('abF1t').value.trim(), f1d: document.getElementById('abF1d').value.trim(),
+      f2t: document.getElementById('abF2t').value.trim(), f2d: document.getElementById('abF2d').value.trim(),
+      f3t: document.getElementById('abF3t').value.trim(), f3d: document.getElementById('abF3d').value.trim(),
+      f4t: document.getElementById('abF4t').value.trim(), f4d: document.getElementById('abF4d').value.trim()
     };
-    const { error } = await supabase.from('site_about').upsert(payload);
-    if (error) return adminErrorAlert('save about section', error);
-    siteData.about = { eyebrow:payload.eyebrow, title:payload.title, p1:payload.paragraph_1, p2:payload.paragraph_2 };
     renderAboutPublic();
+    saveSiteData();
     flashSaved('aboutSaved');
   });
-
+ 
   /* ===== Strands form ===== */
-  document.getElementById('strandForm').addEventListener('submit', async (e) => {
+  document.getElementById('strandForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const acPayload = {
-      id: 1, track_key: 'academic',
+    siteData.strandAcademic = {
       title: document.getElementById('stAcTitle').value.trim(),
-      description: document.getElementById('stAcDesc').value.trim(),
-      items: document.getElementById('stAcItems').value.split('\n').map(s => s.trim()).filter(Boolean),
-      updated_by: currentAdmin ? currentAdmin.id : null
+      desc: document.getElementById('stAcDesc').value.trim(),
+      items: document.getElementById('stAcItems').value.split('\n').map(s => s.trim()).filter(Boolean)
     };
-    const tvPayload = {
-      id: 2, track_key: 'tvl',
+    siteData.strandTVL = {
       title: document.getElementById('stTvlTitle').value.trim(),
-      description: document.getElementById('stTvlDesc').value.trim(),
-      items: document.getElementById('stTvlItems').value.split('\n').map(s => s.trim()).filter(Boolean),
-      updated_by: currentAdmin ? currentAdmin.id : null
+      desc: document.getElementById('stTvlDesc').value.trim(),
+      items: document.getElementById('stTvlItems').value.split('\n').map(s => s.trim()).filter(Boolean)
     };
-    const { error } = await supabase.from('strand_tracks').upsert([acPayload, tvPayload]);
-    if (error) return adminErrorAlert('save strand offerings', error);
-    siteData.strandAcademic = { title:acPayload.title, desc:acPayload.description, items:acPayload.items };
-    siteData.strandTVL = { title:tvPayload.title, desc:tvPayload.description, items:tvPayload.items };
     renderStrandsPublic();
+    saveSiteData();
     flashSaved('strandSaved');
   });
-
+ 
   /* ===== Contact form ===== */
-  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const payload = {
-      id: 1,
+    siteData.contact = {
       address: document.getElementById('cAddress').value.trim(),
       phone: document.getElementById('cPhone').value.trim(),
       email: document.getElementById('cEmail').value.trim(),
-      map_text: document.getElementById('cMap').value.trim(),
-      updated_by: currentAdmin ? currentAdmin.id : null
+      map: document.getElementById('cMap').value.trim()
     };
-    const { error } = await supabase.from('site_contact').upsert(payload);
-    if (error) return adminErrorAlert('save contact info', error);
-    siteData.contact = { address:payload.address, phone:payload.phone, email:payload.email, map:payload.map_text };
     renderContactPublic();
+    saveSiteData();
     flashSaved('contactSaved');
   });
-
+ 
   /* ===== Announcements (list) ===== */
   function renderAnnouncements(){
     const list = document.getElementById('announceList');
     if (!siteData.announcements.length){ list.innerHTML = '<p class="empty-note">No announcements yet.</p>'; return; }
-    list.innerHTML = siteData.announcements.map((a) => `
+    list.innerHTML = siteData.announcements.map((a, i) => `
       <div class="dash-list-item">
-        <div class="li-info"><span class="li-meta">${a.day} ${a.month} · ${a.tag || 'General'}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
-        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAnnouncement('${a.id}')">Delete</button>
+        <div class="li-info" style="display:flex;align-items:center;gap:10px;">
+          ${a.image ? `<img src="${a.image}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">` : ''}
+          <div><span class="li-meta">${a.day} ${a.month} · ${a.tag || 'General'}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
+        </div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAnnouncement(${i})">Delete</button>
       </div>`).join('');
   }
   document.getElementById('announceForm').addEventListener('submit', async (e) => {
@@ -1223,30 +1390,42 @@
     const tag = document.getElementById('aTag').value.trim();
     const title = document.getElementById('aTitle').value.trim();
     const desc = document.getElementById('aDesc').value.trim();
+    const file = document.getElementById('aImage').files[0];
     if (!day || !month || !title) return;
-    const { data, error } = await supabase.from('announcements')
-      .insert({ day, month, tag, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
-      .select().single();
-    if (error) return adminErrorAlert('add announcement', error);
-    siteData.announcements.unshift({ id:data.id, day, month, tag, title, desc });
-    renderAnnouncements(); renderAnnouncementsPublic();
-    e.target.reset();
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalText = submitBtn.textContent;
+    try {
+      let image = null;
+      if (file) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Uploading…';
+        image = await resizeImageToDataURL(file);
+      }
+      siteData.announcements.unshift({ day, month, tag, title, desc, image });
+      renderAnnouncements(); renderAnnouncementsPublic();
+      saveSiteData();
+      e.target.reset();
+    } catch (err) {
+      console.error('Announcement photo upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
-  async function deleteAnnouncement(id){
-    const { error } = await supabase.from('announcements').delete().eq('id', id);
-    if (error) return adminErrorAlert('delete announcement', error);
-    siteData.announcements = siteData.announcements.filter(a => a.id !== id);
-    renderAnnouncements(); renderAnnouncementsPublic();
-  }
-
+  function deleteAnnouncement(i){ siteData.announcements.splice(i, 1); renderAnnouncements(); renderAnnouncementsPublic(); saveSiteData(); }
+ 
   /* ===== News (list) ===== */
   function renderNewsAdmin(){
     const list = document.getElementById('newsList');
     if (!siteData.news.length){ list.innerHTML = '<p class="empty-note">No news items yet.</p>'; return; }
-    list.innerHTML = siteData.news.map((n) => `
+    list.innerHTML = siteData.news.map((n, i) => `
       <div class="dash-list-item">
-        <div class="li-info"><span class="li-meta">${n.cat}</span><h4>${n.title}</h4><span>${n.desc || ''}</span></div>
-        <button type="button" class="btn btn-danger btn-sm" onclick="deleteNews('${n.id}')">Delete</button>
+        <div class="li-info" style="display:flex;align-items:center;gap:10px;">
+          ${n.image ? `<img src="${n.image}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">` : ''}
+          <div><span class="li-meta">${n.cat}</span><h4>${n.title}</h4><span>${n.desc || ''}</span></div>
+        </div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteNews(${i})">Delete</button>
       </div>`).join('');
   }
   document.getElementById('newsForm').addEventListener('submit', async (e) => {
@@ -1254,114 +1433,104 @@
     const cat = document.getElementById('nCat').value.trim();
     const title = document.getElementById('nTitle').value.trim();
     const desc = document.getElementById('nDesc').value.trim();
+    const file = document.getElementById('nImage').files[0];
     if (!cat || !title) return;
-    const { data, error } = await supabase.from('news_events')
-      .insert({ category: cat, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
-      .select().single();
-    if (error) return adminErrorAlert('add news item', error);
-    siteData.news.unshift({ id:data.id, cat, title, desc });
-    renderNewsAdmin(); renderNewsPublic();
-    e.target.reset();
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalText = submitBtn.textContent;
+    try {
+      let image = null;
+      if (file) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Uploading…';
+        image = await resizeImageToDataURL(file);
+      }
+      siteData.news.unshift({ cat, title, desc, image });
+      renderNewsAdmin(); renderNewsPublic();
+      saveSiteData();
+      e.target.reset();
+    } catch (err) {
+      console.error('News photo upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
-  async function deleteNews(id){
-    const { error } = await supabase.from('news_events').delete().eq('id', id);
-    if (error) return adminErrorAlert('delete news item', error);
-    siteData.news = siteData.news.filter(n => n.id !== id);
-    renderNewsAdmin(); renderNewsPublic();
-  }
-
+  function deleteNews(i){ siteData.news.splice(i, 1); renderNewsAdmin(); renderNewsPublic(); saveSiteData(); }
+ 
   /* ===== Gallery (list) ===== */
   function renderGalleryAdmin(){
     const list = document.getElementById('galleryList');
     if (!siteData.gallery.length){ list.innerHTML = '<p class="empty-note">No photos yet.</p>'; return; }
-    list.innerHTML = siteData.gallery.map((g) => `
+    list.innerHTML = siteData.gallery.map((g, i) => `
       <div class="dash-list-item">
-        <div class="li-info"><h4>${g.label}</h4></div>
-        <button type="button" class="btn btn-danger btn-sm" onclick="deleteGallery('${g.id}')">Delete</button>
+        <div class="li-info" style="display:flex;align-items:center;gap:10px;">
+          ${g.image ? `<img src="${g.image}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">` : ''}
+          <h4>${g.label || '(no caption)'}</h4>
+        </div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteGallery(${i})">Delete</button>
       </div>`).join('');
   }
   document.getElementById('galleryForm').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const fileInput = document.getElementById('gImage');
     const label = document.getElementById('gLabel').value.trim();
-    if (!label) return;
-    const { data, error } = await supabase.from('gallery_items')
-      .insert({ label, created_by: currentAdmin ? currentAdmin.id : null })
-      .select().single();
-    if (error) return adminErrorAlert('add gallery caption', error);
-    siteData.gallery.push({ id:data.id, label });
-    renderGalleryAdmin(); renderGalleryPublic();
-    e.target.reset();
+    const file = fileInput.files[0];
+    if (!file) return;
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Uploading…';
+    try {
+      const dataUrl = await resizeImageToDataURL(file);
+      siteData.gallery.push({ label, image: dataUrl });
+      renderGalleryAdmin(); renderGalleryPublic();
+      saveSiteData();
+      e.target.reset();
+    } catch (err) {
+      console.error('Gallery photo upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    }
   });
-  async function deleteGallery(id){
-    const { error } = await supabase.from('gallery_items').delete().eq('id', id);
-    if (error) return adminErrorAlert('delete gallery caption', error);
-    siteData.gallery = siteData.gallery.filter(g => g.id !== id);
-    renderGalleryAdmin(); renderGalleryPublic();
-  }
-
-  /* ===== Downloads (list + real file upload) ===== */
+  function deleteGallery(i){ siteData.gallery.splice(i, 1); renderGalleryAdmin(); renderGalleryPublic(); saveSiteData(); }
+ 
+  /* ===== Downloads (list) ===== */
   function renderDownloads(){
     const list = document.getElementById('downloadList');
     if (!siteData.downloads.length){ list.innerHTML = '<p class="empty-note">No documents yet.</p>'; return; }
-    list.innerHTML = siteData.downloads.map((d) => `
+    list.innerHTML = siteData.downloads.map((d, i) => `
       <div class="dash-list-item">
-        <div class="li-info"><span class="li-meta">${d.code}</span><h4>${d.title}</h4><span>${d.desc || ''}${d.file_name ? ' · ' + d.file_name : ''}</span></div>
-        <button type="button" class="btn btn-danger btn-sm" onclick="deleteDownload('${d.id}')">Delete</button>
+        <div class="li-info"><span class="li-meta">${d.code}</span><h4>${d.title}</h4><span>${d.desc || ''}</span></div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteDownload(${i})">Delete</button>
       </div>`).join('');
   }
-  document.getElementById('downloadForm').addEventListener('submit', async (e) => {
+  document.getElementById('downloadForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const code = document.getElementById('dCode').value.trim();
     const title = document.getElementById('dTitle').value.trim();
     const desc = document.getElementById('dDesc').value.trim();
-    const fileInput = document.getElementById('dFile');
-    const file = fileInput.files[0];
-    if (!code || !title || !file) return;
-
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    submitBtn.disabled = true; submitBtn.textContent = 'Uploading…';
-
-    const path = `forms/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`;
-    const { error: uploadError } = await supabase.storage.from('downloads').upload(path, file);
-    if (uploadError) {
-      submitBtn.disabled = false; submitBtn.textContent = 'Upload Document';
-      return adminErrorAlert('upload the file', uploadError);
-    }
-
-    const { data, error } = await supabase.from('downloadable_forms')
-      .insert({
-        code, title, description: desc,
-        file_path: path, file_name: file.name,
-        file_size_kb: Math.round(file.size / 1024), mime_type: file.type,
-        uploaded_by: currentAdmin ? currentAdmin.id : null
-      }).select().single();
-
-    submitBtn.disabled = false; submitBtn.textContent = 'Upload Document';
-    if (error) return adminErrorAlert('save the document record', error);
-
-    siteData.downloads.unshift({ id:data.id, code, title, desc, file_path:path, file_name:file.name });
+    if (!code || !title) return;
+    siteData.downloads.unshift({ code, title, desc });
     renderDownloads(); renderDownloadsPublic();
+    saveSiteData();
     e.target.reset();
   });
-  async function deleteDownload(id){
-    const item = siteData.downloads.find(d => d.id === id);
-    if (item && item.file_path) {
-      await supabase.storage.from('downloads').remove([item.file_path]);
-    }
-    const { error } = await supabase.from('downloadable_forms').delete().eq('id', id);
-    if (error) return adminErrorAlert('delete document', error);
-    siteData.downloads = siteData.downloads.filter(d => d.id !== id);
-    renderDownloads(); renderDownloadsPublic();
-  }
-
+  function deleteDownload(i){ siteData.downloads.splice(i, 1); renderDownloads(); renderDownloadsPublic(); saveSiteData(); }
+ 
   /* ===== Achievements (lists) ===== */
   function renderAchStudentsAdmin(){
     const list = document.getElementById('achStudentList');
     if (!siteData.achStudents.length){ list.innerHTML = '<p class="empty-note">No entries yet.</p>'; return; }
-    list.innerHTML = siteData.achStudents.map((a) => `
+    list.innerHTML = siteData.achStudents.map((a, i) => `
       <div class="dash-list-item">
-        <div class="li-info"><span class="li-meta">${a.rank}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
-        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAchStudent('${a.id}')">Delete</button>
+        <div class="li-info" style="display:flex;align-items:center;gap:10px;">
+          ${a.image ? `<img src="${a.image}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">` : ''}
+          <div><span class="li-meta">${a.rank}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
+        </div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAchStudent(${i})">Delete</button>
       </div>`).join('');
   }
   document.getElementById('achStudentForm').addEventListener('submit', async (e) => {
@@ -1369,29 +1538,41 @@
     const rank = document.getElementById('asRank').value.trim();
     const title = document.getElementById('asTitle').value.trim();
     const desc = document.getElementById('asDesc').value.trim();
+    const file = document.getElementById('asImage').files[0];
     if (!rank || !title) return;
-    const { data, error } = await supabase.from('student_achievements')
-      .insert({ rank_label: rank, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
-      .select().single();
-    if (error) return adminErrorAlert('add student achievement', error);
-    siteData.achStudents.unshift({ id:data.id, rank, title, desc });
-    renderAchStudentsAdmin(); renderAchievementsPublic();
-    e.target.reset();
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalText = submitBtn.textContent;
+    try {
+      let image = null;
+      if (file) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Uploading…';
+        image = await resizeImageToDataURL(file);
+      }
+      siteData.achStudents.unshift({ rank, title, desc, image });
+      renderAchStudentsAdmin(); renderAchievementsPublic();
+      saveSiteData();
+      e.target.reset();
+    } catch (err) {
+      console.error('Student achievement photo upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
-  async function deleteAchStudent(id){
-    const { error } = await supabase.from('student_achievements').delete().eq('id', id);
-    if (error) return adminErrorAlert('delete student achievement', error);
-    siteData.achStudents = siteData.achStudents.filter(a => a.id !== id);
-    renderAchStudentsAdmin(); renderAchievementsPublic();
-  }
-
+  function deleteAchStudent(i){ siteData.achStudents.splice(i, 1); renderAchStudentsAdmin(); renderAchievementsPublic(); saveSiteData(); }
+ 
   function renderAchTeachersAdmin(){
     const list = document.getElementById('achTeacherList');
     if (!siteData.achTeachers.length){ list.innerHTML = '<p class="empty-note">No entries yet.</p>'; return; }
-    list.innerHTML = siteData.achTeachers.map((a) => `
+    list.innerHTML = siteData.achTeachers.map((a, i) => `
       <div class="dash-list-item">
-        <div class="li-info"><span class="li-meta">${a.rank}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
-        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAchTeacher('${a.id}')">Delete</button>
+        <div class="li-info" style="display:flex;align-items:center;gap:10px;">
+          ${a.image ? `<img src="${a.image}" alt="" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">` : ''}
+          <div><span class="li-meta">${a.rank}</span><h4>${a.title}</h4><span>${a.desc || ''}</span></div>
+        </div>
+        <button type="button" class="btn btn-danger btn-sm" onclick="deleteAchTeacher(${i})">Delete</button>
       </div>`).join('');
   }
   document.getElementById('achTeacherForm').addEventListener('submit', async (e) => {
@@ -1399,25 +1580,34 @@
     const rank = document.getElementById('atRank').value.trim();
     const title = document.getElementById('atTitle').value.trim();
     const desc = document.getElementById('atDesc').value.trim();
+    const file = document.getElementById('atImage').files[0];
     if (!rank || !title) return;
-    const { data, error } = await supabase.from('teacher_achievements')
-      .insert({ rank_label: rank, title, description: desc, created_by: currentAdmin ? currentAdmin.id : null })
-      .select().single();
-    if (error) return adminErrorAlert('add teacher achievement', error);
-    siteData.achTeachers.unshift({ id:data.id, rank, title, desc });
-    renderAchTeachersAdmin(); renderAchievementsPublic();
-    e.target.reset();
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    const originalText = submitBtn.textContent;
+    try {
+      let image = null;
+      if (file) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Uploading…';
+        image = await resizeImageToDataURL(file);
+      }
+      siteData.achTeachers.unshift({ rank, title, desc, image });
+      renderAchTeachersAdmin(); renderAchievementsPublic();
+      saveSiteData();
+      e.target.reset();
+    } catch (err) {
+      console.error('Teacher achievement photo upload failed:', err);
+      alert('Sorry, that photo could not be added. Please try a different image file.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
-  async function deleteAchTeacher(id){
-    const { error } = await supabase.from('teacher_achievements').delete().eq('id', id);
-    if (error) return adminErrorAlert('delete teacher achievement', error);
-    siteData.achTeachers = siteData.achTeachers.filter(a => a.id !== id);
-    renderAchTeachersAdmin(); renderAchievementsPublic();
-  }
-
-  /* ===== Initial load ===== */
-  loadSiteDataFromSupabase();
-  restoreSessionIfAny();
+  function deleteAchTeacher(i){ siteData.achTeachers.splice(i, 1); renderAchTeachersAdmin(); renderAchievementsPublic(); saveSiteData(); }
+ 
+  /* ===== Initial render ===== */
+  renderAllPublic();
+  refreshFadeUps();
 </script>
  
 </body>
